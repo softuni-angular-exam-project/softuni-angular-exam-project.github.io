@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'softuni-angular-exam';
+  title = 'Softuni Angular Exam Project';
 }
