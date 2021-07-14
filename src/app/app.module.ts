@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
 import { MarketComponent } from './market/market.component';
 import { CommentsComponent } from './comments/comments.component';
+import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CommentsComponent } from './comments/comments.component';
     HomeComponent,
     ProductsComponent,
     MarketComponent,
-    CommentsComponent
+    CommentsComponent,
+    ScrollToTopComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,29 @@
-// @import "./test"
+@import "./mixins/fonts";
+@import "./variables/colors";
+
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  @include rubik;
+}
+
+body {
+  min-width: 320px;
+}
+
+::selection {
+  background: $red;
+  color: $white;
+}
+
+.container {
+  max-width: 980px;
+  padding: 0 5%;
+  margin: 0 auto;
+}
+
+img {
+  user-select: none;
+}
