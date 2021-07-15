@@ -21,7 +21,7 @@ export class AuthService {
 
   signUp(newUser: User) {
     this._firebaseAuth
-      .createUserWithEmailAndPassword(newUser.email, newUser.password)
+      .createUserWithEmailAndPassword(newUser.email, newUser.password!)
       .then(
         (user) => {
           newUser.uid = user.user!.uid;
@@ -86,16 +86,15 @@ export class AuthService {
               ...(e.payload.doc.data() as User),
             };
           });
-          const loadedUser = new User(
-            userInfo[0].name,
-            userInfo[0].email,
-            userInfo[0].password,
-            userInfo[0].phoneCode,
-            userInfo[0].phone,
-            userInfo[0].userImgUrl
-          );
-          this.user.next(loadedUser);          
-          resolve();
+            const loadedUser = new User(
+              userInfo[0].name,
+              userInfo[0].email,
+              userInfo[0].phoneCode,
+              userInfo[0].phone,
+              userInfo[0].userImgUrl
+            );
+            this.user.next(loadedUser);          
+            resolve();
         },
         (error) => {
           //
