@@ -1,3 +1,4 @@
+import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "../app-routing.module";
 
@@ -8,6 +9,7 @@ import { HeaderComponent } from "./header.component";
     HeaderComponent
   ],
   imports: [
+    CommonModule,
     AppRoutingModule
   ],
   exports: [

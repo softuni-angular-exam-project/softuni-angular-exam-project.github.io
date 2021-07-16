@@ -10,8 +10,16 @@ import { FirestoreCollectionsService } from './firestore-collections.service';
 export class AuthService {
   user = new BehaviorSubject<User>(null!);
   loadedUserPromise!: Promise<void>;
+  loadedUser!: User;
+
   errorAuthMsg!: string;
   errorAuthMsgSubject = new BehaviorSubject<string>('');
+
+  errorOnGetuserData!: string;
+  errorOnGetuserDataSubject = new BehaviorSubject<string>('');
+
+  errorOnSetUserData!: string;
+  errorOnSetUserDataSubject = new BehaviorSubject<string>('');
 
   constructor(
     private _router: Router,
@@ -29,9 +37,12 @@ export class AuthService {
             () => {
               this.user.next(newUser);
               this._router.navigate(['/home']);
+              this.errorOnSetUserData = '';
+              this.errorOnSetUserDataSubject.next(this.errorOnSetUserData);
             },
             (error) => {
-              //
+              this.errorOnSetUserData = error.message;
+              this.errorOnSetUserDataSubject.next(this.errorOnSetUserData);
             }
           );
           this.errorAuthMsg = '';
@@ -47,7 +58,7 @@ export class AuthService {
     this._firebaseAuth.signInWithEmailAndPassword(email, password).then(
       () => {
         this.getUserData(email);
-        this.loadedUserPromise.then(() => {
+        this.loadedUserPromise.then(() => {          
           this._router.navigate(['/home']);
           this.errorAuthMsg = '';
           this.errorAuthMsgSubject.next(this.errorAuthMsg);
@@ -70,12 +81,15 @@ export class AuthService {
     this._firebaseAuth.authState.subscribe((user) => {
       if (user) {
         this.getUserData(user.email!);
+        this.loadedUserPromise.then(() => {
+          this.user.next(this.loadedUser);       
+        })     
       } else {
         this.logout();
       }
     });
   }
-
+  
   getUserData(userEmail: string) {
     this.loadedUserPromise = new Promise<void>((resolve, reject) => {
       this._firestoreCollections.getUserData(userEmail).subscribe(
@@ -86,18 +100,20 @@ export class AuthService {
               ...(e.payload.doc.data() as User),
             };
           });
-            const loadedUser = new User(
+            this.loadedUser = new User(
               userInfo[0].name,
               userInfo[0].email,
               userInfo[0].phoneCode,
               userInfo[0].phone,
               userInfo[0].userImgUrl
             );
-            this.user.next(loadedUser);          
+            this.errorOnGetuserData = '';
+            this.errorOnGetuserDataSubject.next(this.errorOnGetuserData);
             resolve();
         },
         (error) => {
-          //
+          this.errorOnGetuserData = error.message;
+          this.errorOnGetuserDataSubject.next(this.errorOnGetuserData);
         }
       );
     });

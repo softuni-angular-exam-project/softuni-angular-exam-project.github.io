@@ -1,21 +1,21 @@
 <p>header works!</p>
 <ul>
-  <li [routerLink]="['/home']" routerLinkActive="router-link-active">
+  <li [routerLink]="['/home']" routerLinkActive="nav-active">
     Home
   </li>
-  <li [routerLink]="['/products']" routerLinkActive="router-link-active">
+  <li *ngIf="!isAuth" [routerLink]="['/products']" routerLinkActive="nav-active">
     Products
   </li>
-  <li [routerLink]="['/market']" routerLinkActive="router-link-active">
+  <li *ngIf="!isAuth" [routerLink]="['/market']" routerLinkActive="nav-active">
     Market
   </li>
-  <li [routerLink]="['/comments']" routerLinkActive="router-link-active">
+  <li [routerLink]="['/comments']" routerLinkActive="nav-active">
     Comments
   </li>
-  <li [routerLink]="['/signin']" routerLinkActive="router-link-active">
+  <li *ngIf="!isAuth" [routerLink]="['/signin']" routerLinkActive="nav-active">
     Signin
   </li>
-  <li [routerLink]="['/signup']" routerLinkActive="router-link-active">
+  <li *ngIf="!isAuth" [routerLink]="['/signup']" routerLinkActive="nav-active">
     Signup
   </li>
   <li (click)="onLogout()">

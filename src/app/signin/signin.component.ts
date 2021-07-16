@@ -15,6 +15,12 @@ export class SigninComponent implements OnInit, OnDestroy {
   errorAuthMsg!: string;
   private _errorAuthMsgSubscription!: Subscription;
 
+  errorOnGetuserData!: string;
+  private _errorOnGetuserDataSubscription!: Subscription;
+
+  errorOnSetUserData!: string;
+  private _errorOnSetUserDataSubscription!: Subscription;
+
   constructor(private _authService: AuthService) {}
 
   ngOnInit(): void {
@@ -33,6 +39,16 @@ export class SigninComponent implements OnInit, OnDestroy {
     this._errorAuthMsgSubscription =
     this._authService.errorAuthMsgSubject.subscribe((error) => {
       this.errorAuthMsg = error;
+    });
+    
+    this._errorOnGetuserDataSubscription =
+    this._authService.errorOnGetuserDataSubject.subscribe((error) => {
+      this.errorOnGetuserData = error;
+    });
+    
+    this._errorOnSetUserDataSubscription =
+    this._authService.errorOnSetUserDataSubject.subscribe((error) => {
+      this.errorOnSetUserData = error;
     });
   }
 

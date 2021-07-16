@@ -57,7 +57,11 @@
 
       <div>
         <button class="btn-default" type="submit" [disabled]="!signinForm.valid">Sign in</button>
-        <p *ngIf="errorAuthMsg" class="error-msg">{{ errorAuthMsg }}</p>
+        <ul class="sign-error">
+          <li class="error-msg" *ngIf="errorAuthMsg">{{ errorAuthMsg }}</li>
+          <li class="error-msg" *ngIf="errorOnGetuserData">{{ errorOnGetuserData }}</li>
+          <li class="error-msg" *ngIf="errorOnSetUserData">{{ errorOnSetUserData }}</li>
+        </ul>
       </div>
     </form>
   </div>
