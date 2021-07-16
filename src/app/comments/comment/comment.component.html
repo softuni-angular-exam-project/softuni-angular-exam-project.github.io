@@ -1,0 +1,24 @@
+<div>
+  <div>
+    <p>{{ comment.userName }}</p>
+    <p>
+      {{ comment.date.toDate() | date:'dd.MM.yyyy' }} at 
+      {{ comment.date.toDate() | date:'HH:mm' }}
+    </p>
+    <p>{{ comment.description }}</p>
+  </div>
+  <div>
+    <button (click)="onReply(comment)">Reply</button>
+  </div>
+
+  <div>
+    <!-- replies -->
+  </div>
+
+  <div>
+    <app-comment-form></app-comment-form>
+  </div>
+</div>
+
+<!-- #### -->
+<hr>

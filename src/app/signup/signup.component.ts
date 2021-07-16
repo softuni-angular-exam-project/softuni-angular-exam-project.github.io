@@ -27,9 +27,6 @@ export class SignupComponent implements OnInit, OnDestroy {
   errorAuthMsg!: string;
   private _errorAuthMsgSubscription!: Subscription;
 
-  errorOnGetuserData!: string;
-  private _errorOnGetuserDataSubscription!: Subscription;
-
   errorOnSetUserData!: string;
   private _errorOnSetUserDataSubscription!: Subscription;
 
@@ -85,11 +82,6 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.errorAuthMsg = error;
     });
     
-    this._errorOnGetuserDataSubscription =
-    this._authService.errorOnGetuserDataSubject.subscribe((error) => {
-      this.errorOnGetuserData = error;
-    });
-    
     this._errorOnSetUserDataSubscription =
     this._authService.errorOnSetUserDataSubject.subscribe((error) => {
       this.errorOnSetUserData = error;
@@ -98,8 +90,10 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._errorAuthMsgSubscription.unsubscribe();
-    this._errorOnGetuserDataSubscription.unsubscribe();
     this._errorOnSetUserDataSubscription.unsubscribe();
+
+    this._authService.errorAuthMsg = '';
+    this._authService.errorAuthMsgSubject.next(this._authService.errorAuthMsg);
   }
 
   confirmPasswordMatcher(controlName: string, matchingControlName: string) {

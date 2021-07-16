@@ -82,7 +82,7 @@ export class AuthService {
       if (user) {
         this.getUserData(user.email!);
         this.loadedUserPromise.then(() => {
-          this.user.next(this.loadedUser);       
+          this.user.next(this.loadedUser);
         })     
       } else {
         this.logout();
@@ -105,7 +105,8 @@ export class AuthService {
               userInfo[0].email,
               userInfo[0].phoneCode,
               userInfo[0].phone,
-              userInfo[0].userImgUrl
+              userInfo[0].userImgUrl,
+              userInfo[0].uid
             );
             this.errorOnGetuserData = '';
             this.errorOnGetuserDataSubject.next(this.errorOnGetuserData);

@@ -3,10 +3,10 @@
   <li [routerLink]="['/home']" routerLinkActive="nav-active">
     Home
   </li>
-  <li *ngIf="!isAuth" [routerLink]="['/products']" routerLinkActive="nav-active">
+  <li *ngIf="isAuth" [routerLink]="['/products']" routerLinkActive="nav-active">
     Products
   </li>
-  <li *ngIf="!isAuth" [routerLink]="['/market']" routerLinkActive="nav-active">
+  <li *ngIf="isAuth" [routerLink]="['/market']" routerLinkActive="nav-active">
     Market
   </li>
   <li [routerLink]="['/comments']" routerLinkActive="nav-active">

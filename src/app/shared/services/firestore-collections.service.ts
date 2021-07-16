@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 import { User } from '../models/user.model';
+import { Comment } from '../models/comment.model';
 
 @Injectable({ providedIn: 'root' })
 export class FirestoreCollectionsService {
@@ -28,5 +29,20 @@ export class FirestoreCollectionsService {
     return this._firestore
       .collection('users', (data) => data.where('email', '==', userEmail))
       .snapshotChanges();
+  }
+
+  setComment(comment: Comment) {
+    return this._firestore.collection('comments').add(comment);
+  }
+
+  getComments() {
+    return this._firestore
+      .collection('comments', (data) => data.orderBy('date', 'asc'))
+      .snapshotChanges();
+  }
+
+  setReply(reply: Comment) {
+    return this._firestore.collection('comments').doc(reply.id)
+      .collection('tabs').add(reply);
   }
 }

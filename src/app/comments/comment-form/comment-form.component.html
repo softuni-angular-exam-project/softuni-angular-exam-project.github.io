@@ -1,0 +1,11 @@
+<form [formGroup]="commnetForm" (ngSubmit)="onSubmitComment(commnetForm)">
+  <div>
+    <textarea class="comments-textarea" placeholder="Type your comment..."
+      formControlName="commentArea"></textarea>
+  </div>
+
+  <div>
+    <button type="submit" [disabled]="!commnetForm.valid">Add your comment</button>
+      <p class="error-msg">{{ '' }}</p>            
+  </div>
+</form>

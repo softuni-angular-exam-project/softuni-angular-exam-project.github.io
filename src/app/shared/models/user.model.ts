@@ -5,7 +5,7 @@ export class User {
     public phoneCode: number,
     public phone: number,
     public userImgUrl: string,
-    public password?: string,
-    public uid?: string
+    public uid?: string,
+    public password?: string
   ) {}
 }
