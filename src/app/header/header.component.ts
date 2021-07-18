@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../shared/services/auth.service';
 
@@ -7,9 +7,9 @@ import { AuthService } from '../shared/services/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   private _userSubscription!: Subscription;
-  isAuth: boolean = false;
+  isAuth!: boolean;
 
   constructor(
     private _authService: AuthService
@@ -21,8 +21,11 @@ export class HeaderComponent implements OnInit {
     })
   }
 
+  ngOnDestroy(): void {
+    this._userSubscription.unsubscribe();
+  }
+
   onLogout() {
     this._authService.logout();
   }
-
 }

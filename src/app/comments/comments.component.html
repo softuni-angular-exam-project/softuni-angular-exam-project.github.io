@@ -4,7 +4,7 @@
       <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
     </div>
 
-    <div>
+    <div *ngIf="!currentCommentId">
       <app-comment-form></app-comment-form>
     </div>
   </div>

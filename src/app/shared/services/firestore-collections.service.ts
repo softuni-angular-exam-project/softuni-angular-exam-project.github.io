@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import * as firebase from 'firebase/app';
 
 import { User } from '../models/user.model';
 import { Comment } from '../models/comment.model';
@@ -41,8 +42,15 @@ export class FirestoreCollectionsService {
       .snapshotChanges();
   }
 
-  setReply(reply: Comment) {
-    return this._firestore.collection('comments').doc(reply.id)
-      .collection('tabs').add(reply);
+  setReply(reply: Comment){
+    return this._firestore.collection('comments').doc(reply.commentId)    
+      .update({
+        replies: firebase.default.firestore.FieldValue.arrayUnion({
+          userName: reply.userName,
+          email: reply.email,
+          date: reply.date,
+          description: reply.description
+        })
+      });
   }
 }

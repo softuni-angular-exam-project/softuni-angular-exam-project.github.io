@@ -1,23 +1,39 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { Comment } from 'src/app/shared/models/comment.model';
+import { CommentIdService } from '../current-comment-id.service';
 
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })
-export class CommentComponent implements OnInit {
+export class CommentComponent implements OnInit, OnDestroy {
   @Input() comment!: Comment;
 
-  constructor() { }
+  currentCommentId!: string;
+  private _currentCommentIdSubscription!: Subscription;
+
+  constructor(
+    private _currentCommentId: CommentIdService
+  ) { }
 
   ngOnInit(): void {
-
+    this._currentCommentIdSubscription = this._currentCommentId.currentCommentIdSubject.subscribe((id) => {
+      this.currentCommentId = id;
+    })
   }
 
-  onReply(comment: Comment) {
-    console.log(comment);
-    
+  ngOnDestroy(): void {
+    this._currentCommentIdSubscription.unsubscribe();
+  }
+
+  onReply(currentCommentId: string) {
+    this._currentCommentId.setCurrentCommentId(currentCommentId);
+  }
+
+  closeReply() {
+    this._currentCommentId.clearCurrentCommentId();
   }
 }

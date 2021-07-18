@@ -1,21 +1,36 @@
 <div>
   <div>
-    <p>{{ comment.userName }}</p>
-    <p>
-      {{ comment.date.toDate() | date:'dd.MM.yyyy' }} at 
-      {{ comment.date.toDate() | date:'HH:mm' }}
-    </p>
-    <p>{{ comment.description }}</p>
-  </div>
-  <div>
-    <button (click)="onReply(comment)">Reply</button>
-  </div>
+    <!-- comment -->
+    <div>
+      <p>{{ comment.userName }}</p>
+      <p>
+        {{ comment.date.toDate() | date:'dd.MM.yyyy' }} at 
+        {{ comment.date.toDate() | date:'HH:mm' }}
+      </p>
+      <p>{{ comment.description }}</p>
+    </div>
 
-  <div>
     <!-- replies -->
+    <div>
+      <div *ngFor="let reply of comment.replies">
+        <p>{{ reply.userName }}</p>
+        <p>
+          {{ reply.date.toDate() | date:'dd.MM.yyyy' }} at 
+          {{ reply.date.toDate() | date:'HH:mm' }}
+        </p>
+        <p>{{ reply.description }}</p>
+      </div>
+    </div>  
   </div>
 
+
   <div>
+    <button *ngIf="currentCommentId !== comment.id" (click)="onReply(comment.id!)">Reply</button>
+    <button *ngIf="currentCommentId == comment.id" (click)="closeReply()">Close</button>
+  </div>
+
+
+  <div *ngIf="currentCommentId == comment.id">
     <app-comment-form></app-comment-form>
   </div>
 </div>

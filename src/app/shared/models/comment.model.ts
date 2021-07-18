@@ -5,7 +5,7 @@ export class Comment {
     public date: firebase.default.firestore.Timestamp,
     public description: string,
     public id?: string,
-    public replies?: Comment[],
-    public commentId?: string
+    public commentId?: string,
+    public replies?: Comment[]
   ){}
 }
