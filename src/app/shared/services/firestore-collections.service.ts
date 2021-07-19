@@ -53,4 +53,16 @@ export class FirestoreCollectionsService {
         })
       });
   }
+
+  getLamborghiniCars() {
+    return this._firestore
+    .collection('lamborghiniCars', data => data.orderBy('dateCreation', 'desc'))
+    .snapshotChanges();
+  }
+
+  getPorscheCars() {
+    return this._firestore
+    .collection('porscheCars', data => data.orderBy('dateCreation', 'desc'))
+    .snapshotChanges();
+  }
 }
