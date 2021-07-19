@@ -8,10 +8,12 @@
       <div></div>
       <div></div>
     </button>
+    
     <ul class="nav-container__nav"
       [@slideRightLeft]="windowWidth >= 767 ? 'none' : navigationMenuState"
       (@slideRightLeft.start)="onDisableButton()"
       (@slideRightLeft.done)="onEnableButton()">
+
       <li (click)="swithcNavigationMenuState()"
         [ngClass]="{'disabled-pointer-events' : disableButton}" 
         [routerLink]="['/home']" 

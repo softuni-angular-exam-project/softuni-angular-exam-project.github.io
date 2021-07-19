@@ -24,7 +24,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._userSubscription = this._authService.user.subscribe(user => {
       this.isAuth = !user ? false : true; 
-    })
+    });
+
+    this.windowWidth = window.innerWidth;
   }
 
   ngOnDestroy(): void {
@@ -38,7 +40,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   swithcNavigationMenuState() {
 		this.navigationMenuState == 'out' ? 
 			this.navigationMenuState = 'in' :	
-			this.navigationMenuState = 'out';
+			this.navigationMenuState = 'out';      
   }
 
   onDisableButton() {
@@ -51,9 +53,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    this.windowWidth = event.target.innerWidth;
-    if (this.windowWidth >= 767) {      
-      this.navigationMenuState = 'out';
-    }
+    this.windowWidth = event.target.innerWidth; 
   }
 }
