@@ -65,4 +65,10 @@ export class FirestoreCollectionsService {
     .collection('porscheCars', data => data.orderBy('dateCreation', 'desc'))
     .snapshotChanges();
   }
+
+  getRouterLinks() {
+    return this._firestore
+    .collection('routerLinks', data => data.orderBy('date', 'asc'))
+    .snapshotChanges();
+  }
 }

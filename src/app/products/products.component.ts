@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { FirestoreCollectionsService } from '../shared/services/firestore-collections.service';
+import { RouterLink } from '../shared/models/car.mode';
+
+// TESTS
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 
@@ -9,12 +13,27 @@ import * as firebase from 'firebase/app';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
+  routerLinks!: RouterLink[];
 
   constructor(
+    private _firestoreCollections: FirestoreCollectionsService,
+
+    // TESTS
     private _firestore: AngularFirestore
   ) { }
 
   ngOnInit(): void {
+    this._firestoreCollections.getRouterLinks().subscribe((data) => {
+      this.routerLinks = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data() as RouterLink
+        }
+      })      
+      // error = ''
+    }, (error) => {
+      // error
+    });
   }
 
 

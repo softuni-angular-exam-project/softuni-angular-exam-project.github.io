@@ -1,5 +1,13 @@
 <!-- other elements -->
 
+<ul>
+  <li 
+    *ngFor="let routerLink of routerLinks"
+    [routerLink]="[ routerLink.link ]" routerLinkActive="active">
+    {{ routerLink.name }}
+  </li>
+</ul>
+
 <router-outlet></router-outlet>
 
 <!-- other elements -->

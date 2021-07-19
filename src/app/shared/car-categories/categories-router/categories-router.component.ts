@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { RouterLink } from '../../models/car.mode';
 
 @Component({
   selector: 'app-categories-router',
@@ -6,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./categories-router.component.scss']
 })
 export class CategoriesRouterComponent implements OnInit {
+  @Input() routerLinks!: RouterLink[];
 
   constructor() { }
 
