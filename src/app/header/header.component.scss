@@ -1,0 +1,127 @@
+@import "../../assets/styles/mixins/hovers";
+@import "../../assets/styles/mixins/media";
+@import "../../assets/styles/mixins/shortand";
+@import "../../assets/styles/variables/colors";
+
+.nav-outer-container {
+  background: rgba($black, 0.95);
+  box-shadow: 0px 5px 5px 0px rgba($red, 0.9);
+  height: 48px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  .nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 10px;
+    &__nav {
+      height: calc(100vh - 50px);
+      position: absolute;
+      top: 50px;
+      width: 100%;
+      background: rgba($black, 0.95);
+      z-index: 1;
+      flex-direction: column;
+      display: flex;
+      justify-content: center;
+      @include media (larmed) {
+        width: auto;
+        height: auto;
+        position: static;
+        background: none;
+        flex-direction: row;
+        justify-content: normal;
+      }
+      .nav-active {
+        @include nav-active;
+      }
+      li {
+        padding: 10px 0;
+        list-style: none;
+        color: $white;
+        text-align: center;
+        @include btn;
+        @include hover (normal) {
+          @include nav-active;
+        }
+        @include media (larmed) {
+          padding: 10px;
+        }
+      }
+      .disabled-link {
+        color: $gray;
+        pointer-events: none;
+      }
+    }
+    &__hamburger {
+      width: 30px;
+      height: 20px;
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      @include media(larmed) {
+        display: none;
+      }
+      div {
+        width: 100%;
+        background: $red;
+        height: 4px;
+        transition: 0.30s ease-in-out;
+        &:not(:last-child) {
+          margin-bottom: 3px;
+        }
+      }
+      ul {
+        position: absolute;
+        color: $white;
+      }
+    }
+    &__hamburger-active {
+      div {
+        &:nth-child(1) {
+          transform: rotate(45deg);
+          margin-top: 0;
+        }
+        &:nth-child(2) {
+          opacity: 0;
+        }
+        &:nth-child(3) {
+          transform: rotate(-45deg);
+          margin-top: -1em;
+        }
+      }
+    }
+    &__sign-btns {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .nav-active-btn {
+        background-color: darken($red, 10%);
+        color: $gray;
+      }
+      button:first-child {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.overlay-active {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 500;
+  background-color: rgba($black, 0.5);
+}
+
+.disabled-pointer-events {
+  pointer-events: none;
+}

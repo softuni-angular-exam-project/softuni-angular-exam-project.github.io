@@ -1,24 +1,69 @@
-<p>header works!</p>
-<ul>
-  <li [routerLink]="['/home']" routerLinkActive="nav-active">
-    Home
-  </li>
-  <li *ngIf="isAuth" [routerLink]="['/products']" routerLinkActive="nav-active">
-    Products
-  </li>
-  <li *ngIf="isAuth" [routerLink]="['/market']" routerLinkActive="nav-active">
-    Market
-  </li>
-  <li [routerLink]="['/comments']" routerLinkActive="nav-active">
-    Comments
-  </li>
-  <li *ngIf="!isAuth" [routerLink]="['/signin']" routerLinkActive="nav-active">
-    Signin
-  </li>
-  <li *ngIf="!isAuth" [routerLink]="['/signup']" routerLinkActive="nav-active">
-    Signup
-  </li>
-  <li (click)="onLogout()">
-    Logout
-  </li>
-</ul>
+<div class="nav-outer-container">
+  <div class="nav-container">
+    <button class="nav-container__hamburger"
+      (click)="swithcNavigationMenuState()"
+      [disabled]="disableButton"
+      [ngClass]="{'nav-container__hamburger-active' : navigationMenuState == 'in'}">
+      <div></div>
+      <div></div>
+      <div></div>
+    </button>
+    <ul class="nav-container__nav"
+      [@slideRightLeft]="windowWidth >= 767 ? 'none' : navigationMenuState"
+      (@slideRightLeft.start)="onDisableButton()"
+      (@slideRightLeft.done)="onEnableButton()">
+      <li (click)="swithcNavigationMenuState()"
+        [ngClass]="{'disabled-pointer-events' : disableButton}" 
+        [routerLink]="['/home']" 
+        routerLinkActive="nav-active">
+        Home
+      </li>
+      <li (click)="swithcNavigationMenuState()"
+        [ngClass]="{'disabled-pointer-events' : disableButton}"
+        [routerLink]="['/products']" 
+        routerLinkActive="nav-active" 
+        *ngIf="isAuth">
+        Products
+      </li>
+      <li (click)="swithcNavigationMenuState()"
+        [ngClass]="{'disabled-pointer-events' : disableButton}"
+        [routerLink]="['/market']" 
+        routerLinkActive="nav-active" 
+        *ngIf="isAuth">
+        Market
+      </li>
+      <li (click)="swithcNavigationMenuState()"
+        [ngClass]="{'disabled-pointer-events' : disableButton}"
+        [routerLink]="['/comments']" 
+        routerLinkActive="nav-active">
+        Comments
+      </li>
+    </ul>
+
+    <div class="nav-container__sign-btns">
+      <button class="btn-default narrow-btn"
+        [routerLink]="['/signin']" 
+        routerLinkActive="nav-active-btn" 
+        *ngIf="!isAuth">
+        Sign in
+      </button>
+      <button class="btn-default narrow-btn"
+        [routerLink]="['/signup']" 
+        routerLinkActive="nav-active-btn"
+        *ngIf="!isAuth">
+        Sign up
+      </button>
+    </div>
+
+    <div *ngIf="isAuth" class="user-info">
+      <app-user-info></app-user-info>
+    </div>
+  </div>
+</div>
+
+<!-- will be moved in user info -->
+<br>
+<br>
+<br>
+<br>
+<button (click)="onLogout()">Logout</button>

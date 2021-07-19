@@ -3,10 +3,12 @@ import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "../app-routing.module";
 
 import { HeaderComponent } from "./header.component";
+import { UserInfoComponent } from './user-info/user-info.component';
 
 @NgModule ({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    UserInfoComponent
   ],
   imports: [
     CommonModule,

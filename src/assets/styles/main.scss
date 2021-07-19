@@ -91,7 +91,6 @@ input.ng-invalid.ng-touched,
   color: $white;
   font-size: 1.1em;
   transition: all 0.5s ease;
-  border-radius: 3px;
   @include btn;
   &:disabled {
     background-color: darken($red, 10%);
@@ -104,6 +103,13 @@ input.ng-invalid.ng-touched,
   @include media(med) {
     width: 190px;
   }
+}
+
+.narrow-btn {
+  width: auto !important;
+  height: auto;
+  line-height: 1.1em;
+  padding: 5px;
 }
 
 button:disabled {
