@@ -3,6 +3,10 @@ import { Subscription } from 'rxjs';
 
 import { AuthService } from '../shared/services/auth.service';
 import { Animations } from '../shared/animations';
+import { User } from '../shared/models/user.model';
+import { NavParamsService } from './nav-params.service';
+import { NavParameters } from '../shared/models/nav-params.model';
+import { FirestoreCollectionsService } from '../shared/services/firestore-collections.service';
 
 @Component({
   selector: 'app-header',
@@ -13,46 +17,73 @@ import { Animations } from '../shared/animations';
 export class HeaderComponent implements OnInit, OnDestroy {
   private _userSubscription!: Subscription;
   isAuth!: boolean;
-  disableButton!: boolean;
-  navigationMenuState: string = 'out';
-	windowWidth!: number;
+  user!: User;
+  dbCollectionUser!: User[];
+
+  navParams!: NavParameters;
+  private _navParamsSubscription!: Subscription;
 
   constructor(
-    private _authService: AuthService
+    private _firestoreCollections: FirestoreCollectionsService,
+    private _authService: AuthService,
+    private _navParamsService: NavParamsService
   ) { }
 
   ngOnInit(): void {
-    this._userSubscription = this._authService.user.subscribe(user => {
-      this.isAuth = !user ? false : true; 
+    this._userSubscription = this._authService.user
+    .subscribe((user) => {
+      this.user = user;
+      this.isAuth = !user ? false : true;
+
+      const promise = new Promise<void>((resolve, reject) => {
+        if (user) {
+          resolve();
+        }
+      });
+
+      promise.then(() => {
+        this._firestoreCollections.getUserData(user.email).subscribe(data => {
+          this.dbCollectionUser = data.map(e => {
+            return {
+              id: e.payload.doc.id,
+              ...e.payload.doc.data() as User
+            }  
+          })
+          // 
+        }, (error) => {
+          // 
+        })
+      })
     });
 
-    this.windowWidth = window.innerWidth;
+    this._navParamsSubscription = this._navParamsService.navParamsSubject
+    .subscribe((params) => {
+      this.navParams = params;
+    })
   }
 
   ngOnDestroy(): void {
-    this._userSubscription.unsubscribe();
+    this._navParamsSubscription.unsubscribe();
   }
 
-  onLogout() {
-    this._authService.logout();
-  }
-
-  swithcNavigationMenuState() {
-		this.navigationMenuState == 'out' ? 
-			this.navigationMenuState = 'in' :	
-			this.navigationMenuState = 'out';      
+  onSwithcNavigationMenuState() {
+		this._navParamsService.swithcNavigationMenuState();
   }
 
   onDisableButton() {
-    this.disableButton = true;
+    this._navParamsService.disableButton();
 	}
 
 	onEnableButton() {
-    this.disableButton = false;
+    this._navParamsService.enableButton();
+  }
+
+  onOverlayClick() {
+    this._navParamsService.overlayClick();
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    this.windowWidth = event.target.innerWidth; 
+    this.navParams.windowWidth = event.target.innerWidth; 
   }
 }

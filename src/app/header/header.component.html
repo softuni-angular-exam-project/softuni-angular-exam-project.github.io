@@ -1,41 +1,41 @@
 <div class="nav-outer-container">
   <div class="nav-container">
     <button class="nav-container__hamburger"
-      (click)="swithcNavigationMenuState()"
-      [disabled]="disableButton"
-      [ngClass]="{'nav-container__hamburger-active' : navigationMenuState == 'in'}">
+      (click)="onSwithcNavigationMenuState()"
+      [disabled]="navParams.disableButton"
+      [ngClass]="{'nav-container__hamburger-active' : navParams.navigationMenuState == 'in'}">
       <div></div>
       <div></div>
       <div></div>
     </button>
     
     <ul class="nav-container__nav"
-      [@slideRightLeft]="windowWidth >= 767 ? 'none' : navigationMenuState"
+      [@slideRightLeft]="navParams.windowWidth >= 767 ? 'none' : navParams.navigationMenuState"
       (@slideRightLeft.start)="onDisableButton()"
       (@slideRightLeft.done)="onEnableButton()">
 
-      <li (click)="swithcNavigationMenuState()"
-        [ngClass]="{'disabled-pointer-events' : disableButton}" 
+      <li (click)="onSwithcNavigationMenuState()"
+        [ngClass]="{'disabled-pointer-events' : navParams.disableButton}" 
         [routerLink]="['/home']" 
         routerLinkActive="nav-active">
         Home
       </li>
-      <li (click)="swithcNavigationMenuState()"
-        [ngClass]="{'disabled-pointer-events' : disableButton}"
+      <li (click)="onSwithcNavigationMenuState()"
+        [ngClass]="{'disabled-pointer-events' : navParams.disableButton}"
         [routerLink]="['/products']" 
         routerLinkActive="nav-active" 
         *ngIf="isAuth">
         Products
       </li>
-      <li (click)="swithcNavigationMenuState()"
-        [ngClass]="{'disabled-pointer-events' : disableButton}"
+      <li (click)="onSwithcNavigationMenuState()"
+        [ngClass]="{'disabled-pointer-events' : navParams.disableButton}"
         [routerLink]="['/market']" 
         routerLinkActive="nav-active" 
         *ngIf="isAuth">
         Market
       </li>
-      <li (click)="swithcNavigationMenuState()"
-        [ngClass]="{'disabled-pointer-events' : disableButton}"
+      <li (click)="onSwithcNavigationMenuState()"
+        [ngClass]="{'disabled-pointer-events' : navParams.disableButton}"
         [routerLink]="['/comments']" 
         routerLinkActive="nav-active">
         Comments
@@ -57,15 +57,14 @@
       </button>
     </div>
 
-    <div *ngIf="isAuth" class="user-info">
-      <app-user-info></app-user-info>
-    </div>
+    <div *ngIf="isAuth && dbCollectionUser">
+      <app-user-info [dbCollectionUser]="dbCollectionUser[0]"></app-user-info>
+    </div>      
   </div>
 </div>
-
-<!-- will be moved in user info -->
-<!-- <br>
-<br>
-<br>
-<br>
-<button (click)="onLogout()">Logout</button> -->
+<div 
+  (click)="onOverlayClick()" 
+  class="nav-overlay"
+  [ngClass]="{'overlay-active' : navParams.isOverlayShown, 
+  'disabled-pointer-events' : navParams.disableButton}">
+</div>

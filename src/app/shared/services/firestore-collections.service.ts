@@ -15,6 +15,14 @@ export class FirestoreCollectionsService {
       .snapshotChanges();
   }
 
+  updatePhone(newPhoneInfo: any){
+    return this._firestore
+    .collection('users').doc(newPhoneInfo.userId).update({
+      phoneCode: newPhoneInfo.phoneCode,
+      phone: newPhoneInfo.phone
+     });
+   }
+
   setUserData(newUser: User) {
     return this._firestore.collection('users').doc(newUser.uid).set({
       name: newUser.name,

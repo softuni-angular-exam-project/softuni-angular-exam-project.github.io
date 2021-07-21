@@ -35,6 +35,14 @@
       width: 50%;
     }
   }
+  .main-content1-text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .main-content1-btn {
+    margin-top: auto;
+  }
   @include media (larmed) {
     display: flex;
     justify-content: center;

@@ -1,0 +1,208 @@
+@import "../../../assets/styles/mixins/shortand";
+@import "../../../assets/styles/mixins/fonts";
+@import "../../../assets/styles/variables/colors";
+
+.user-info-container {
+  &__user-nav {
+    display: flex;
+    .manage-user-info {
+      background-color: transparent;
+      background-image: url("../../../assets/images/user-info/user-info.png");
+      background-size: contain;
+      height: 30px;
+      width: 28px;
+      @include btn;
+    }
+  }
+  &__user-info-content {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 320px;
+    box-sizing: border-box;
+    padding: 10px;
+    background: rgba($black, 0.95);
+    color: #999;
+    border-bottom-left-radius: 3px;
+    box-shadow: -2px 2px 5px 0px rgba($red, 0.9);
+    >div {
+      padding: 10px 0;
+    }
+    .user-image-container {
+      position: relative;
+      .user-loading-spinner .loading-spinner {
+        background-color: rgba($black, 0.5);
+      }
+      .user-avatar {
+        border-radius: 50%;
+        border: 3px solid $red;
+        width: 125px;
+        height: 125px;
+        box-sizing: border-box;
+        margin: 0 auto;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .change-user-img {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin-top: 10px;
+      }
+      .change-user-image-btn {
+        @include btn;
+        width: 20px;
+        height: 20px;
+        background-color: transparent;
+        background-image: url("../../../assets/images/user-info/edit.png");
+        background-size: cover;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    }
+    .user-name-container {
+      display: flex;
+      align-items: center;
+      .user-name {
+        line-height: 25px;
+      }
+      .user-name-img {
+        width: 20px;
+        margin-right: 10px;
+        img {
+          max-width: 100%;
+          display: block;
+        }
+      }
+    }
+    .user-email-container {
+      display: flex;
+      align-items: center;
+      .user-email-img {
+        width: 20px;
+        margin-right: 10px;
+        img {
+          max-width: 100%;
+          display: block;
+        }
+        .user-email {
+          line-height: 25px;
+        }
+      }
+    }
+    .phone-container {
+      display: flex;
+      .phone-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        >div {
+          display: flex;
+          align-items: center;
+          .user-phone-img {
+            width: 20px;
+            margin-right: 10px;
+            img {
+              max-width: 100%;
+              display: block;
+            }
+            .user-phone {
+              line-height: 25px;
+            }
+          }
+        }
+        .phone-code {
+          margin-right: 5px;
+        }
+        .change-phone-btn {
+          width: 20px;
+          height: 20px;
+          outline: none;
+          border: none;
+          background-image: url("../../../assets/images/user-info/edit.png");
+          background-size: cover;
+          background-color: transparent;
+          cursor: pointer;
+          margin-bottom: 8px;
+        }
+      }
+      .change-phone-form-container {
+        display: flex;
+        align-items: center;
+        .change-phone-form {
+          display: flex;
+          align-items: center;
+          .change-phone {
+            width: 131px;
+            outline: none;
+            border: none;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            box-sizing: border-box;
+            padding: 0;
+            line-height: 28px;
+            height: 28px;
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+            margin: 0;
+            @include inputNoArrows;
+            filter: none;
+            &:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus {
+              border: none;
+              -webkit-text-fill-color: $black;
+              -webkit-box-shadow: none;
+              transition: background-color 5000s ease-in-out 0s;
+            }
+          }
+          .phone-accept-change {
+            @include changePhoneBtn;
+            background-image: url("../../../assets/images/user-info/accept.png");
+            &:disabled {
+              background-image: url("../../../assets/images/user-info/accept-disabled.png");
+            }
+          }
+          .phone-decline-change {
+            @include changePhoneBtn;
+            background-image: url("../../../assets/images/user-info/decline.png");
+          }
+        }
+      }
+    }
+    .logout-btn {
+      float: right;
+    }
+  }
+}
+
+//mat select
+.change-phone-select {
+  .mat-form-field {
+    * {
+      padding: 0 !important;
+    }
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    background-color: $white;
+    width: 65px;
+    padding: 0 7px;
+    .mat-form-field-infix {
+      border: none;
+      height: 28px !important;
+      display: flex !important;
+      align-items: center;
+      .ng-star-inserted {
+        @include rubik;
+        color: $black;
+      }
+      .mat-select-arrow {
+        color: $black;
+      }
+    }
+    .mat-form-field-underline {
+      display: none;
+    }
+  }
+}

@@ -1,1 +1,87 @@
-<p>user-info works!</p>
+<div class="user-info-container">
+  <div class="user-info-container__user-nav">
+    <button class="manage-user-info" 
+      [disabled]="navParams.disableButton"
+      (click)="onSwithcUserInfoState()">
+    </button>
+  </div>
+
+  <div class="user-info-container__user-info-content" 
+    [@slideLeftRight]="navParams.userInfoMenuState"
+    (@slideLeftRight.start)="onDisableButton()"
+    (@slideLeftRight.done)="onEnableButton()"
+    *ngIf="dbCollectionUser">
+
+      <div class="user-image-container">
+        <div class="user-avatar" 
+          [ngStyle]="{'background-image': 'url('+imgLocalPath+')'}">
+        </div>
+        <div *ngIf="isInChangeImgMode" class="change-user-img">
+          <input 
+            #chooseImg style="display: none;" 
+            type="file" 
+            (change)="uploadAvatar($event)" 
+            accept=".png,.jpg,.jpeg,.svg,.heic">
+          <button class="btn-default narrow-btn ng-star-inserted" (click)="chooseImg.click()">Chоose image</button>
+          <button class="btn-default narrow-btn ng-star-inserted" [disabled]="file==undefined" (click)="uploadAvatarToFirestorage()">Upload Image</button>          
+        </div>
+        <button 
+          class="change-user-image-btn"
+          (click)="changeImgMode()">
+        </button>
+      </div>
+
+      <div class="user-name-container">
+        <div class="user-name-img">
+          <img src="../../../assets/images/sign-forms/user.png">
+        </div>
+        <div>{{ dbCollectionUser.name }}</div>
+      </div>
+      <div class="phone-container">
+        <div class="phone-info">
+          <div>
+            <div class="user-phone-img">
+              <img src="../../../assets/images/sign-forms/phone.png">
+            </div>
+              <div class="phone-code" *ngIf="!changePhoneButton">+{{ dbCollectionUser.phoneCode }}</div>
+              <div *ngIf="!changePhoneButton">{{ dbCollectionUser.phone }}</div>
+          </div>
+          <button class="change-phone-btn" *ngIf="!changePhoneButton" (click)="enablePhoneEdit()"></button>
+        </div>
+        <div class="change-phone-form-container">
+          <form 
+            class="change-phone-form" 
+            *ngIf="changePhoneButton" 
+            [formGroup]="changePhoneForm" 
+            (ngSubmit)="onChangePhone(changePhoneForm)">
+
+            <div class="change-phone-select">
+              <mat-form-field>
+                <mat-select formControlName="phoneCode">
+                  <mat-option *ngFor="let phoneCode of phoneCodes" [value]="phoneCode.phoneCode">
+                    <img [src]="phoneCode.imgUrl">
+                    +{{phoneCode.phoneCode}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <input class="change-phone" type="number" name="phone" formControlName="phone">
+            <button class="phone-accept-change" type="submit" [disabled]="!this.changePhoneForm.valid"></button>
+            <button class="phone-decline-change" type="button" (click)="disablePhoneEdit()"></button>
+          </form>
+          <p *ngIf="errorMsgOnPhoneChange" class="error-msg">{{ errorMsgOnPhoneChange }}</p>
+          <p *ngIf="errorMsgOnloadPhoneCodes" class="error-msg">{{ errorMsgOnloadPhoneCodes }}</p>
+        </div>
+      </div>
+
+      <div class="user-email-container">
+        <div class="user-email-img">
+          <img src="../../../assets/images/sign-forms//email.png">
+        </div>
+        <div>{{ dbCollectionUser.email }}</div>
+      </div>
+      <button class="logout-btn btn-default narrow-btn" (click)="onLogout()">
+        Logout
+      </button>      
+  </div>
+</div>

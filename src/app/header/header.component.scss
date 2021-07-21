@@ -112,6 +112,10 @@
   }
 }
 
+.nav-overlay {
+  transition: 0.5s;
+}
+
 .overlay-active {
   position: fixed;
   width: 100vw;
