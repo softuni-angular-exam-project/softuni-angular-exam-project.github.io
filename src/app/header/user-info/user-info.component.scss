@@ -55,7 +55,6 @@
         width: 20px;
         height: 20px;
         background-color: transparent;
-        background-image: url("../../../assets/images/user-info/edit.png");
         background-size: cover;
         position: absolute;
         top: 0;
@@ -173,36 +172,6 @@
     }
     .logout-btn {
       float: right;
-    }
-  }
-}
-
-//mat select
-.change-phone-select {
-  .mat-form-field {
-    * {
-      padding: 0 !important;
-    }
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-    background-color: $white;
-    width: 65px;
-    padding: 0 7px;
-    .mat-form-field-infix {
-      border: none;
-      height: 28px !important;
-      display: flex !important;
-      align-items: center;
-      .ng-star-inserted {
-        @include rubik;
-        color: $black;
-      }
-      .mat-select-arrow {
-        color: $black;
-      }
-    }
-    .mat-form-field-underline {
-      display: none;
     }
   }
 }

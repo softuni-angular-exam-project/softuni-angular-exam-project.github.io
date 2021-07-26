@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 import { User } from 'src/app/shared/models/user.model';
 import { FirestoreCollectionsService } from 'src/app/shared/services/firestore-collections.service';
@@ -17,16 +18,18 @@ import { NavParamsService } from '../nav-params.service';
   animations: [Animations.slideLeftRight]
 })
 export class UserInfoComponent implements OnInit, OnDestroy {
-  @Input() dbCollectionUser!: User;
+  @Input() user!: User;
   changePhoneButton: boolean = false;
   changePhoneForm!: FormGroup;
   phoneCodes!: PhoneCode[];
-  errorMsgOnloadPhoneCodes!: string;
-  errorMsgOnPhoneChange!: string;
+  errorMsgOnloadPhoneCodes: string = '';
+  errorMsgOnPhoneChange: string = '';
+  isInChangeImgMode: boolean = false;
   file: any;
   defaultImg!: string;
   imgLocalPath!: string;
-  isInChangeImgMode: boolean = false;
+  errorMsgOnAvatarUpload: string = '';
+  errorMsgOnAvatarUpdate: string = '';
 
   navParams!: NavParameters;
   private _navParamsSubscription!: Subscription;
@@ -34,13 +37,14 @@ export class UserInfoComponent implements OnInit, OnDestroy {
   constructor(
     private _firestoreCollections: FirestoreCollectionsService,
     private _authService: AuthService,
-    private _navParamsService: NavParamsService
+    private _navParamsService: NavParamsService,
+    private _angularFireStorage: AngularFireStorage,
   ) { }
 
   ngOnInit(): void {
     this.changePhoneForm = new FormGroup({
-      phone: new FormControl(this.dbCollectionUser.phone, Validators.required),
-      phoneCode: new FormControl(this.dbCollectionUser.phoneCode, Validators.required)  
+      phone: new FormControl(this.user.phone, Validators.required),
+      phoneCode: new FormControl(this.user.phoneCode, Validators.required)  
     });
 
     this._firestoreCollections.getPhoneCodes().subscribe(data => {
@@ -48,8 +52,8 @@ export class UserInfoComponent implements OnInit, OnDestroy {
         return {
           id: e.payload.doc.id,
           ...e.payload.doc.data() as PhoneCode
-        }        
-      })
+        }
+      })        
       this.errorMsgOnloadPhoneCodes = '';
     }, error => {
       this.errorMsgOnloadPhoneCodes = error.message;
@@ -60,7 +64,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
       this.navParams = params;
     });
 
-    this.defaultImg = this.imgLocalPath = this.dbCollectionUser.userImgUrl;
+    this.defaultImg = this.imgLocalPath = this.user.userImgUrl;
   }
 
   ngOnDestroy(): void {
@@ -79,16 +83,54 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     this._navParamsService.enableButton();
   }
 
-  uploadAvatar(event: any) {
-
-  }
-
-  uploadAvatarToFirestorage() {
-
-  }
-
   changeImgMode() {
+    this.isInChangeImgMode = !this.isInChangeImgMode;
+    if (!this.isInChangeImgMode) {
+      this.imgLocalPath = this.defaultImg;
+      this.file = undefined;
+    }
+  }
 
+  uploadAvatar(event: any) {
+    this.file = event.target.files[0];  
+    if (this.file) {
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.imgLocalPath = event.target.result;
+      }
+      reader.readAsDataURL(event.target.files[0]);
+    } else {
+      this.imgLocalPath = this.defaultImg;
+    } 
+  }
+
+  uploadAvatarToFirestorage() {    
+    if (this.user.userImgUrl !== this._firestoreCollections.userDefaultImgUrl) {
+      this._firestoreCollections.delete(this.user.userImgUrl);
+    }
+
+    this._angularFireStorage
+    .upload('/userImages/' + this.user.email + '/' + this.file.name, this.file)
+    .then(uploadTask => {
+      uploadTask.ref.getDownloadURL().then(url => {
+        const userImgUrl = url;
+        const userId = this.user.uid;
+        const newIfo = { userImgUrl, userId };
+
+        this._firestoreCollections.updateUserImgUrl(newIfo)
+        .then(() => {
+          this.isInChangeImgMode = false;
+          this.errorMsgOnAvatarUpdate = '';
+          this.defaultImg = url;
+        }, (error) => {
+          this.errorMsgOnAvatarUpdate = error.message;
+        })
+      })      
+      this.errorMsgOnAvatarUpload = '';
+      this.file = undefined;
+    }, (error) => {
+      this.errorMsgOnAvatarUpload = error.message;
+    })
   }
 
   enablePhoneEdit() {
@@ -97,8 +139,8 @@ export class UserInfoComponent implements OnInit, OnDestroy {
 
   disablePhoneEdit() {
     this.changePhoneButton = false;
-    this.changePhoneForm.get('phoneCode')!.setValue(this.dbCollectionUser.phoneCode);
-    this.changePhoneForm.get('phone')!.setValue(this.dbCollectionUser.phone);
+    this.changePhoneForm.get('phoneCode')!.setValue(this.user.phoneCode);
+    this.changePhoneForm.get('phone')!.setValue(this.user.phone);
   }
 
   onChangePhone(changePhoneForm: FormGroup) {
@@ -106,7 +148,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const userId = this.dbCollectionUser.uid;
+    const userId = this.user.uid;
     const phoneCode = changePhoneForm.value.phoneCode;
     const phone = changePhoneForm.value.phone;    
     const newPhoneInfo = {userId, phoneCode, phone}
@@ -121,7 +163,11 @@ export class UserInfoComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
-    this._navParamsService.test();
-    this._authService.logout();
+    this._navParamsService.resetParamsToDefault();
+
+    //exit after the end of the animation
+    setTimeout(() => {      
+      this._authService.logout();
+    }, Animations.animationSpeed);
   }
 }

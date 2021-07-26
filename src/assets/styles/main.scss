@@ -117,7 +117,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
-//mat select
+//mat select - registration form
 .sign-select {
   .mat-form-field {
     * {
@@ -161,4 +161,34 @@ button:disabled {
   border-top: 2px solid $red !important;
   border-left: 2px solid $red !important;
   border-bottom: 2px solid $red !important;
+}
+
+//mat select - user phone change
+.change-phone-select {
+  .mat-form-field {
+    * {
+      padding: 0 !important;
+    }
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    background-color: $white;
+    width: 65px;
+    padding: 0 7px;
+    .mat-form-field-infix {
+      border: none;
+      height: 28px !important;
+      display: flex !important;
+      align-items: center;
+      .ng-star-inserted {
+        @include rubik;
+        color: $black;
+      }
+      .mat-select-arrow {
+        color: $black;
+      }
+    }
+    .mat-form-field-underline {
+      display: none;
+    }
+  }
 }

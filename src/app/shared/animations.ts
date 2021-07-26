@@ -1,6 +1,8 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
-
+export const animationSpeed = 500;
 export const Animations = {
+	animationSpeed: animationSpeed,
+
 	slideRightLeft: trigger('slideRightLeft', [
 		state('in', style({
 			'transform': 'translateX(-10px)'
@@ -9,12 +11,13 @@ export const Animations = {
 			'transform': 'translateX(-103%)'
 		})),
 		transition('in => out', [
-			animate('500ms ease-in-out'),
+			animate(`${animationSpeed}ms ease-in-out`),
 		]),
 		transition('out => in', [
-			animate('500ms ease-in-out'),
+			animate(`${animationSpeed}ms ease-in-out`),
 		])
 	]),
+
 	slideLeftRight: trigger('slideLeftRight', [
 		state('in', style({
 			'transform': 'translateX(0)'
@@ -23,10 +26,10 @@ export const Animations = {
 			'transform': 'translateX(103%)'
 		})),
 		transition('in => out', [
-			animate('500ms ease-in-out'),
+			animate(`${animationSpeed}ms ease-in-out`),
 		]),
 		transition('out => in', [
-			animate('500ms ease-in-out'),
+			animate(`${animationSpeed}ms ease-in-out`),
 		])
 	])
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
 import * as firebase from 'firebase/app';
 
 import { User } from '../models/user.model';
@@ -7,7 +8,12 @@ import { Comment } from '../models/comment.model';
 
 @Injectable({ providedIn: 'root' })
 export class FirestoreCollectionsService {
-  constructor(private _firestore: AngularFirestore) {}
+  userDefaultImgUrl: string = 'https://firebasestorage.googleapis.com/v0/b/softuni-angular-exam.appspot.com/o/userImages%2Fdefault-user.jpg?alt=media&token=00ab0080-7faa-4497-bbcc-4c0c9d7f0db2';
+
+  constructor(
+    private _firestore: AngularFirestore,
+    private _storage: AngularFireStorage
+  ) {}
 
   getPhoneCodes() {
     return this._firestore
@@ -39,6 +45,13 @@ export class FirestoreCollectionsService {
       .collection('users', (data) => data.where('email', '==', userEmail))
       .snapshotChanges();
   }
+
+  updateUserImgUrl(newInfo: any){
+    return this._firestore.collection('users').doc(newInfo.userId)
+    .update({
+      userImgUrl: newInfo.userImgUrl
+     });
+   }
 
   setComment(comment: Comment) {
     return this._firestore.collection('comments').add(comment);
@@ -78,5 +91,9 @@ export class FirestoreCollectionsService {
     return this._firestore
     .collection('routerLinks', data => data.orderBy('date', 'asc'))
     .snapshotChanges();
+  }
+
+  delete(url: string) {
+    return this._storage.storage.refFromURL(url).delete();
   }
 }

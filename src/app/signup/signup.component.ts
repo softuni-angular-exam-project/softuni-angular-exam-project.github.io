@@ -21,8 +21,6 @@ export class SignupComponent implements OnInit, OnDestroy {
   signupForm!: FormGroup;
   phoneCodes!: PhoneCode[];
   errorMsgOnLoadPhoneCodes!: string;
-  userDefaultImgUrl: string =
-    'https://firebasestorage.googleapis.com/v0/b/softuni-angular-exam.appspot.com/o/userImages%2Fdefault-user.jpg?alt=media&token=00ab0080-7faa-4497-bbcc-4c0c9d7f0db2';
 
   errorAuthMsg!: string;
   private _errorAuthMsgSubscription!: Subscription;
@@ -118,7 +116,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     const phone = signupForm.value.phone;
     const email = signupForm.value.email;
     const password = signupForm.value.password;
-    const userImgUrl = this.userDefaultImgUrl;
+    const userImgUrl = this._firestoreCollections.userDefaultImgUrl;
 
     const newUser: User = {
       name,

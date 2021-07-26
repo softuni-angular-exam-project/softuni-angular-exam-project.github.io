@@ -41,9 +41,7 @@ export class NavParamsService {
     this.initialParams.isOverlayShown = false;
   }
 
-  test() {
-    // this.initialParams.isOverlayShown = false;
-
+  resetParamsToDefault() {
     this.initialParams.userInfoMenuState = 'out';
     this.initialParams.navigationMenuState = 'out';
     this.initialParams.disableButton = false;

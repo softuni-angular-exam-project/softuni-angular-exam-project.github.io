@@ -10,7 +10,7 @@
     [@slideLeftRight]="navParams.userInfoMenuState"
     (@slideLeftRight.start)="onDisableButton()"
     (@slideLeftRight.done)="onEnableButton()"
-    *ngIf="dbCollectionUser">
+    *ngIf="user">
 
       <div class="user-image-container">
         <div class="user-avatar" 
@@ -22,10 +22,24 @@
             type="file" 
             (change)="uploadAvatar($event)" 
             accept=".png,.jpg,.jpeg,.svg,.heic">
-          <button class="btn-default narrow-btn ng-star-inserted" (click)="chooseImg.click()">Chоose image</button>
-          <button class="btn-default narrow-btn ng-star-inserted" [disabled]="file==undefined" (click)="uploadAvatarToFirestorage()">Upload Image</button>          
+          <button 
+            class="btn-default narrow-btn ng-star-inserted" 
+            (click)="chooseImg.click()">
+            Chоose image
+          </button>
+          <button 
+            class="btn-default narrow-btn ng-star-inserted" 
+            [disabled]="file==undefined" 
+            (click)="uploadAvatarToFirestorage()">
+            Upload Image
+          </button>          
         </div>
-        <button 
+        <p *ngIf="errorMsgOnAvatarUpload" class="error-msg">{{ errorMsgOnAvatarUpload }}</p>
+        <p *ngIf="errorMsgOnAvatarUpdate" class="error-msg">{{ errorMsgOnAvatarUpdate }}</p>
+        <button
+          [ngStyle]="{'background-image': isInChangeImgMode ? 
+            'url(\'../../../assets/images/user-info/decline.png\')' : 
+            'url(\'../../../assets/images/user-info/edit.png\')'}"
           class="change-user-image-btn"
           (click)="changeImgMode()">
         </button>
@@ -35,7 +49,7 @@
         <div class="user-name-img">
           <img src="../../../assets/images/sign-forms/user.png">
         </div>
-        <div>{{ dbCollectionUser.name }}</div>
+        <div>{{ user.name }}</div>
       </div>
       <div class="phone-container">
         <div class="phone-info">
@@ -43,8 +57,8 @@
             <div class="user-phone-img">
               <img src="../../../assets/images/sign-forms/phone.png">
             </div>
-              <div class="phone-code" *ngIf="!changePhoneButton">+{{ dbCollectionUser.phoneCode }}</div>
-              <div *ngIf="!changePhoneButton">{{ dbCollectionUser.phone }}</div>
+              <div class="phone-code" *ngIf="!changePhoneButton">+{{ user.phoneCode }}</div>
+              <div *ngIf="!changePhoneButton">{{ user.phone }}</div>
           </div>
           <button class="change-phone-btn" *ngIf="!changePhoneButton" (click)="enablePhoneEdit()"></button>
         </div>
@@ -78,7 +92,7 @@
         <div class="user-email-img">
           <img src="../../../assets/images/sign-forms//email.png">
         </div>
-        <div>{{ dbCollectionUser.email }}</div>
+        <div>{{ user.email }}</div>
       </div>
       <button class="logout-btn btn-default narrow-btn" (click)="onLogout()">
         Logout

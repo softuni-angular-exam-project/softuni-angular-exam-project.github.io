@@ -6,7 +6,6 @@ import { Animations } from '../shared/animations';
 import { User } from '../shared/models/user.model';
 import { NavParamsService } from './nav-params.service';
 import { NavParameters } from '../shared/models/nav-params.model';
-import { FirestoreCollectionsService } from '../shared/services/firestore-collections.service';
 
 @Component({
   selector: 'app-header',
@@ -15,45 +14,21 @@ import { FirestoreCollectionsService } from '../shared/services/firestore-collec
   animations: [Animations.slideRightLeft]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  private _userSubscription!: Subscription;
   isAuth!: boolean;
   user!: User;
-  dbCollectionUser!: User[];
 
   navParams!: NavParameters;
   private _navParamsSubscription!: Subscription;
 
   constructor(
-    private _firestoreCollections: FirestoreCollectionsService,
     private _authService: AuthService,
     private _navParamsService: NavParamsService
   ) { }
 
   ngOnInit(): void {
-    this._userSubscription = this._authService.user
-    .subscribe((user) => {
+    this._authService.user.subscribe((user) => {
       this.user = user;
-      this.isAuth = !user ? false : true;
-
-      const promise = new Promise<void>((resolve, reject) => {
-        if (user) {
-          resolve();
-        }
-      });
-
-      promise.then(() => {
-        this._firestoreCollections.getUserData(user.email).subscribe(data => {
-          this.dbCollectionUser = data.map(e => {
-            return {
-              id: e.payload.doc.id,
-              ...e.payload.doc.data() as User
-            }  
-          })
-          // 
-        }, (error) => {
-          // 
-        })
-      })
+      this.isAuth = user ? true : false;
     });
 
     this._navParamsSubscription = this._navParamsService.navParamsSubject
