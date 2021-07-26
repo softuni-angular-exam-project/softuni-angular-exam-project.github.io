@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from './shared/services/auth.service';
+import { ThemeService } from './header/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +11,13 @@ import { AuthService } from './shared/services/auth.service';
 export class AppComponent implements OnInit {
   title = 'Softuni Angular Exam Project';
 
-  constructor(private _authservice: AuthService) {}
+  constructor(
+    private _authservice: AuthService,
+    private _themeService: ThemeService
+  ) {}
 
   ngOnInit(): void {
     this._authservice.autoLogin();
+    this._themeService.getCurrentTheme();
   }
 }

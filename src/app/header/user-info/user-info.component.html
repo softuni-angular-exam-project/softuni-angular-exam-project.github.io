@@ -94,6 +94,19 @@
         </div>
         <div>{{ user.email }}</div>
       </div>
+
+      <div class="switch-theme">
+        <div class="theme">
+          <img src="../../../assets/images/user-info/sun.png">
+        </div>
+        <div>
+          <mat-slide-toggle (change)="changeTheme()" [checked]="darkMode"></mat-slide-toggle>
+        </div>
+        <div class="theme">
+          <img src="../../../assets/images/user-info/moon.png">
+        </div>          
+      </div>
+
       <button class="logout-btn btn-default narrow-btn" (click)="onLogout()">
         Logout
       </button>      

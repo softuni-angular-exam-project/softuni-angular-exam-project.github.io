@@ -22,7 +22,7 @@
     box-sizing: border-box;
     padding: 10px;
     background: rgba($black, 0.95);
-    color: #999;
+    color: $white;
     border-bottom-left-radius: 3px;
     box-shadow: -2px 2px 5px 0px rgba($red, 0.9);
     >div {
@@ -167,6 +167,21 @@
             @include changePhoneBtn;
             background-image: url("../../../assets/images/user-info/decline.png");
           }
+        }
+      }
+    }
+    .switch-theme {
+      display: flex;
+      div:nth-child(1) {
+        margin-right: 15px;
+      }
+      div:nth-child(3) {
+        margin-left: 15px;
+      }
+      .theme {
+        height: 25px;
+        img {
+          max-height: 100%;
         }
       }
     }

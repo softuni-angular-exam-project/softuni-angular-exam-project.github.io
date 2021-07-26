@@ -10,6 +10,7 @@ import { Animations } from '../../shared/animations';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { NavParameters } from 'src/app/shared/models/nav-params.model';
 import { NavParamsService } from '../nav-params.service';
+import { ThemeService } from '../theme.service';
 
 @Component({
   selector: 'app-user-info',
@@ -30,6 +31,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
   imgLocalPath!: string;
   errorMsgOnAvatarUpload: string = '';
   errorMsgOnAvatarUpdate: string = '';
+  darkMode!: boolean;
 
   navParams!: NavParameters;
   private _navParamsSubscription!: Subscription;
@@ -39,6 +41,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     private _authService: AuthService,
     private _navParamsService: NavParamsService,
     private _angularFireStorage: AngularFireStorage,
+    private _themeService: ThemeService
   ) { }
 
   ngOnInit(): void {
@@ -65,6 +68,8 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     });
 
     this.defaultImg = this.imgLocalPath = this.user.userImgUrl;
+
+    this.darkMode = this._themeService.darkMode;
   }
 
   ngOnDestroy(): void {
@@ -160,6 +165,12 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     }, (error) => {
       this.errorMsgOnPhoneChange = error.message;
     });
+  }
+
+  changeTheme() {
+    JSON.parse(localStorage.getItem('theme')!) == 
+      'theme-light' ? this._themeService.setDark() : this._themeService.setLight();
+    this.darkMode = this._themeService.darkMode;
   }
 
   onLogout() {

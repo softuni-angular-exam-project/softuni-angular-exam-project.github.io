@@ -58,9 +58,9 @@
     -webkit-appearance: none;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: #444546;
+    background-color: var(--color14);
     @include hover (normal) {
-      background-color: lighten(#444546, 10%);
+      background-color: var(--color16);
     }
   }
   @if $scrollbar==normal {
@@ -90,7 +90,7 @@
     }
     &::-webkit-scrollbar-track {
       border-radius: 0;
-      background-color: #999;
+      background-color: var(--color15);
     }
   }
   // -moz-

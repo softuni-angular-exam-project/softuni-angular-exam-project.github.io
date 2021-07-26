@@ -2,7 +2,7 @@
 @import "../../assets/styles/mixins/media";
 
 .main-container {
-  background-color: $white;
+  background-color: var(--color2);
   box-shadow: 0px 0px 10px 1px rgba($black, 0.75);
   padding: 20px;
   margin-bottom: 30px;
@@ -17,7 +17,7 @@
   }
   p {
     padding-bottom: 15px;
-    color: $black;
+    color: var(--color6);
   }
 }
 

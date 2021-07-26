@@ -1,5 +1,5 @@
 .sign-form {
-  background-color: $white;
+  background-color: var(--color2);
   box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.75);
   max-width: 767px;
   padding: 20px;
@@ -64,8 +64,8 @@
     }
     input {
       width: calc(100% - 50px);
-      border: 1px solid #e4e4e2;
-      color: $black;
+      border: 1px solid var(--color8);
+      color: var(--color7);
       border-radius: 0 3px 3px 0;
       box-sizing: border-box;
       padding: 7px;
@@ -74,8 +74,8 @@
       background-color: rgba($white, 0.5);
       filter: none;
       &:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus {
-        border: 1px solid #e4e4e2;
-        -webkit-text-fill-color: $black;
+        border: 1px solid var(--color8);
+        -webkit-text-fill-color: var(--color7);
         -webkit-box-shadow: none;
         transition: background-color 5000s ease-in-out 0s;
       }
@@ -83,12 +83,12 @@
     label {
       margin-bottom: 5px;
       width: 100%;
-      color: $black;
+      color: var(--color7);
     }
   }
   .hr-border {
-    border-top: 1px solid #e4e4e2;
-    border-bottom: 1px solid #f1f0ec;
+    border-top: 1px solid var(--color9);
+    border-bottom: 1px solid var(--color5);
     margin: 20px 0;
   }
 }
