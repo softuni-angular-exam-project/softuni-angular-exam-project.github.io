@@ -10,6 +10,7 @@ import { FirestoreCollectionsService } from 'src/app/shared/services/firestore-c
 })
 export class LamborghiniComponent implements OnInit {
   lamborghiniCars!: Car[];
+  errorOnGetLamborghiniCars: string = '';
   
   constructor(
     private _firestoreCollections: FirestoreCollectionsService
@@ -23,9 +24,9 @@ export class LamborghiniComponent implements OnInit {
           ...e.payload.doc.data() as Car
         }
       })
-      // error = ''     
+      this.errorOnGetLamborghiniCars = '';
     }, (error) => {
-      // error
+      this.errorOnGetLamborghiniCars = error.message;
     });
   }
 }

@@ -1,17 +1,19 @@
-<div
+<div class="car-item"
   (mouseover)="carCurrentImage = car.carHoverImg"
   (mouseout)="carCurrentImage = car.carImg">
-  <img [src]="carCurrentImage || car.carImg">
-  <p>{{ car.carInfo }}</p>
-  <hr>
-  <div>
+  <img class="car-item__img" [src]="carCurrentImage || car.carImg">
+  <p class="car-item__info">{{ car.carInfo }}</p>
+  <hr class="car-item__hr">
+  <div class="car-item__prise">
     <div>
       <p> &#36; {{ car.carPrice }}</p>
     </div>
-    <div>
+    <div class="add-to-cart">
       <p>Add to Cart</p>
     </div>
   </div>
+  <div class="car-item__images">
+    <button class="btn-default narrow-btn">View Images</button>
+    <app-car-images></app-car-images>
+  </div>
 </div>
-
-<app-car-images [carImgs]="car.carImgs"></app-car-images>

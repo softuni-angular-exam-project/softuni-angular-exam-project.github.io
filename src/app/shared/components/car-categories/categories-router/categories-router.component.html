@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="categories">
+    <div class="categories__content">
+      <p>Categories</p>
+        <ul>
+          <li 
+            *ngFor="let routerLink of routerLinks"
+            [routerLink]="[ routerLink.link ]" routerLinkActive="categories-active">
+            {{ routerLink.name }}
+          </li>
+        </ul>
+  
+      <div class="call-us">
+        <ng-container [ngTemplateOutlet]="callUs"></ng-container>
+      </div>
+    </div>
+  
+    <div class="categories__router">
+      <router-outlet></router-outlet>
+    </div>  
+  </div>
+  
+  <div class="call-us-mob">
+    <ng-container [ngTemplateOutlet]="callUs"></ng-container>
+  </div>
+</div>
+
+<ng-template #callUs>
+  <h3>CALL US</h3>
+  <a href="tel:+359123456789">+359 123 456 789</a>
+</ng-template>

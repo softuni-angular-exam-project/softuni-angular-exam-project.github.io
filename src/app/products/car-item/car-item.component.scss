@@ -1,0 +1,57 @@
+@import '/src/assets/styles/variables/colors';
+@import '/src/assets/styles/mixins/media';
+@import '/src/assets/styles/mixins/hovers';
+
+.car-item {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 3px;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 5px 1px rgba($black, 0.75);
+  width: 96%;
+  background-color: #f9f9f7;
+  border: 1px solid #e4e4e2;
+  color: $black;
+  display: inline-block;
+  vertical-align:top;
+  @include media (med) {
+    width: 47%;
+  }
+  &__img {
+    box-shadow: 0px 0px 5px 1px rgba($black, 0.75);
+    border-radius: 3px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  &__hr {
+    margin: 15px 0px;
+    border: none;
+    border-top: 1px solid $red;
+  }
+  &__info {
+    text-align: center;
+  }
+  &__prise {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;    
+    .add-to-cart {
+      width: 106px;
+      box-sizing: border-box;
+      color: $gray;
+      cursor: pointer;
+      padding-right: 20px;
+      background-image: url("../../../assets/images/shared/plus.png");
+      background-repeat: no-repeat;
+      background-position: right;
+      @include hover (normal) {
+        color: $red;
+      }
+    }
+  }
+  &__images {
+    margin-top: 15px;
+    text-align: center;
+  }
+}

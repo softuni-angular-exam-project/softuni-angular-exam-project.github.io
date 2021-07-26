@@ -1,0 +1,129 @@
+@import '/src/assets/styles/mixins/media';
+@import '/src/assets/styles/mixins/shortand';
+@import '/src/assets/styles/variables/colors';
+
+.categories {
+  @include media(lar) {
+    display: flex;
+  }
+  &__content {
+    @include media(lar) {
+      width: 220px;
+      margin-right: 10px;
+    }
+    p {
+      background-color: $red;
+      text-align: center;
+      padding: 15px;
+      color: $white;
+      font-size: 1.5em;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+      box-shadow: 0px 0px 5px 1px rgba($black, 0.75);
+      position: relative;
+      z-index: 2;
+    }
+    ul {
+      white-space: nowrap;
+      height: 50px;
+      display: flex;
+      margin-bottom: 10px;
+      background-color: $black;
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+      box-shadow: 0px 0px 5px 1px rgba($black, 0.75);
+      position: relative;
+      z-index: 1;
+      overflow: auto;
+      @include scrollbar(normal);
+      @include media(lar) {
+        height: 528px;
+        overflow: auto;
+        display: block;
+      }
+      li {
+        padding: 15px;
+        list-style: none;
+        color: $white;
+        @include btn;
+        @include hover(normal) {
+          @include categories-active;
+        }
+        @include media(lar) {
+          text-align: center;
+        }
+      }
+      .categories-active {
+        @include categories-active;
+      }
+    }
+    .call-us {
+      display: none;
+      @include media(lar) {
+        display: block;
+        margin-top: 20px;
+        padding: 20px;
+        height: 250px;
+        border-radius: 3px;
+        background-image: url('../../../../../assets/images/shared/call-us.jpg');
+        box-shadow: 0px 0px 5px 1px rgba($black, 0.75);
+      }
+      h3 {
+        color: $black;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      a {
+        font-size: 1.3em;
+        color: $red;
+        display: block;
+        text-align: center;
+        font-weight: bold;
+        user-select: none;
+      }
+    }
+  }
+  &__router {
+    background-color: var(--color2);
+    box-shadow: 0px 0px 10px 1px rgba($black, 0.75);
+    border-radius: 3px;
+    max-height: 895px;
+    overflow: auto;
+    @include scrollbar(normal);
+    @include media(lar) {
+      width: calc(100% - 220px);
+      box-sizing: border-box;
+    }
+  }
+}
+
+.call-us-mob {
+  background-image: url('../../../../../assets/images/shared/call-us-mob.jpg');
+  background-repeat: no-repeat;
+  background-position: right;
+  height: 100px;
+  margin-top: 30px;
+  border-radius: 3px;
+  box-shadow: 0px 0px 5px 1px rgba($black, 0.75);
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  @include media(lar) {
+    display: none;
+  }
+  h3 {
+    color: $black;
+    font-weight: bold;
+    margin-bottom: 10px;
+    width: calc(100% - 155px);
+    text-align: center;
+  }
+  a {
+    color: $red;
+    font-weight: bold;
+    user-select: none;
+    width: calc(100% - 155px);
+    text-align: center;
+  }
+}

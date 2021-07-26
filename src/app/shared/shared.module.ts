@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { CategoriesInfoComponent } from './car-categories/categories-info/categories-info.component';
-import { CategoriesRouterComponent } from './car-categories/categories-router/categories-router.component';
-import { CarImagesComponent } from './car-images/car-images.component';
+import { CategoriesInfoComponent } from './components/car-categories/categories-info/categories-info.component';
+import { CategoriesRouterComponent } from './components/car-categories/categories-router/categories-router.component';
+import { CarImagesComponent } from './components/car-images/car-images.component';
 
 @NgModule({
     declarations: [
