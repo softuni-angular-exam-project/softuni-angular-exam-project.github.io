@@ -1,0 +1,106 @@
+@import '../mixins/hovers';
+@import '../variables/colors';
+
+@mixin inputNoArrows {
+  &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    margin: 0;
+  }
+}
+
+@mixin signFormBackround {
+  background-color: $red;
+  background-size: contain;
+  background-position: center;
+  background-origin: content-box;
+  background-repeat: no-repeat;
+  width: 50px;
+  border-radius: 3px 0 0 3px;
+  padding: 7px;
+  box-sizing: border-box;
+}
+
+@mixin btn {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  user-select: none;
+  padding: 10px;
+  border-radius: 3px;
+  color: $white;
+}
+
+@mixin nav-active {
+  color: $red !important;
+  font-weight: bold;
+  background: url("../../images/shared/nav-underline.png") center no-repeat;
+  background-position-y: 21px;
+}
+
+@mixin changePhoneBtn {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  user-select: none;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  margin-left: 10px;
+}
+
+@mixin scrollbar ($scrollbar) {
+  // -webkit-
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color14);
+    @include hover (normal) {
+      background-color: var(--color16);
+    }
+  }
+  @if $scrollbar==normal {
+    &::-webkit-scrollbar:vertical {
+      width: 8px;
+    }
+    &::-webkit-scrollbar:horizontal {
+      height: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 8px;
+    }
+    &::-webkit-scrollbar-track {
+      border-radius: 8px;
+      background-color: transparent;
+    }
+  }
+  @else if $scrollbar==body {
+    &::-webkit-scrollbar:vertical {
+      width: 10px;
+    }
+    &::-webkit-scrollbar:horizontal {
+      height: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+    }
+    &::-webkit-scrollbar-track {
+      border-radius: 0;
+      background-color: var(--color15);
+    }
+  }
+  // -moz-
+  scrollbar-color: var(--color14) transparent;
+  scrollbar-width: thin;
+}
+
+@mixin categories-active {
+  color: $red !important;
+  font-weight: bold;
+  background: url("../../images/shared/nav-underline.png") center no-repeat;
+  background-position-y: 27px;
+}
