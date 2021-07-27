@@ -23,6 +23,9 @@ export class CommentFormComponent implements OnInit, OnDestroy {
   user!: User;
   private _userSubscription!: Subscription;
 
+  errorOnAddComment: string = '';
+  errorOnAddReply: string = '';
+
   constructor(
     private _authService: AuthService,
     private _firestoreCollections: FirestoreCollectionsService,
@@ -66,10 +69,10 @@ export class CommentFormComponent implements OnInit, OnDestroy {
       this._firestoreCollections.setComment(post).then(
         () => {
           commnetForm.reset();
-          //error = '';
+          this.errorOnAddComment = '';
         },
         (error) => {
-          // error
+          this.errorOnAddComment = error.message;
         }
       );
     } else {
@@ -81,10 +84,10 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         () => {
           commnetForm.reset();
           this._currentCommentId.clearCurrentCommentId();
-          // error = ''
+          this.errorOnAddReply = '';
         },
         (error) => {
-          // error
+          this.errorOnAddReply = error.message;
         }
       );
     }

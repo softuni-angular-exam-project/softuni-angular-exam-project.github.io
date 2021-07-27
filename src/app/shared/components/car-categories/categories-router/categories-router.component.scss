@@ -116,13 +116,14 @@
     color: $black;
     font-weight: bold;
     margin-bottom: 10px;
-    width: calc(100% - 155px);
+    width: calc(100% - 155px);    
     text-align: center;
   }
   a {
     color: $red;
     font-weight: bold;
     user-select: none;
+    min-width: 135px;
     width: calc(100% - 155px);
     text-align: center;
   }

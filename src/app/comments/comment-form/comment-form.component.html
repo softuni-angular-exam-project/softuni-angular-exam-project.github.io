@@ -5,7 +5,13 @@
   </div>
 
   <div>
-    <button type="submit" [disabled]="!commnetForm.valid">Add your comment</button>
-      <p class="error-msg">{{ '' }}</p>
+    <button 
+      class="btn-default btn-default-center" 
+      type="submit" 
+      [disabled]="!commnetForm.valid">
+      Add your comment
+    </button>
+      <p class="error-msg" *ngIf="errorOnAddComment">{{ errorOnAddComment }}</p>
+      <p class="error-msg" *ngIf="errorOnAddReply">{{ errorOnAddReply }}</p>
   </div>
 </form>

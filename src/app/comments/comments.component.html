@@ -1,11 +1,14 @@
-<div>
-  <div class="container">
+<div class="container">
+  <div class="comments-container">
+    <p class="comments">Comments</p>
+
     <div *ngIf="comments">
       <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
     </div>
-
-    <div *ngIf="!currentCommentId">
+    <hr class="hr-border">
+    <div *ngIf="!currentCommentId && isAuth">
       <app-comment-form></app-comment-form>
     </div>
+    <p *ngIf="!isAuth">sdsada</p>
   </div>
 </div>

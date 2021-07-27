@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { FirestoreCollectionsService } from '../shared/services/firestore-collections.service';
 import { Comment } from '../shared/models/comment.model';
 import { CommentIdService } from './current-comment-id.service';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-comments',
@@ -13,12 +14,16 @@ import { CommentIdService } from './current-comment-id.service';
 export class CommentsComponent implements OnInit, OnDestroy {
   comments!: Comment[];
 
+  isAuth!: boolean;
+  private _isAuthSubscription!: Subscription;
+
   currentCommentId!: string;
   private _currentCommentIdSubscription!: Subscription;
 
   constructor(
     private _firestoreCollections: FirestoreCollectionsService,
-    private _currentCommentId: CommentIdService
+    private _currentCommentId: CommentIdService,
+    private _authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -38,12 +43,17 @@ export class CommentsComponent implements OnInit, OnDestroy {
     );
 
     this._currentCommentIdSubscription =
-      this._currentCommentId.currentCommentIdSubject.subscribe((id) => {
-        this.currentCommentId = id;
-      });
+    this._currentCommentId.currentCommentIdSubject.subscribe((id) => {
+      this.currentCommentId = id;
+    });
+
+    this._isAuthSubscription = this._authService.user.subscribe((user) => {
+      this.isAuth = user ? true : false;
+    })
   }
 
   ngOnDestroy(): void {
     this._currentCommentIdSubscription.unsubscribe();
+    this._isAuthSubscription.unsubscribe();
   }
 }

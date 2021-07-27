@@ -1,0 +1,5 @@
+@import '/src/assets/styles/mixins/shortand';
+
+.comments-textarea {
+  @include default-textarea;
+}
