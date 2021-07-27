@@ -5,6 +5,7 @@ import { RouterModule } from "@angular/router";
 import { MatSelectModule } from '@angular/material/select';
 
 import { SignupComponent } from "./signup.component";
+import { SharedModule } from "../shared/shared.module";
 
 @NgModule ({
   declarations: [
@@ -14,6 +15,7 @@ import { SignupComponent } from "./signup.component";
     CommonModule,
     MatSelectModule,
     ReactiveFormsModule,
+    SharedModule,
     RouterModule.forChild([
       {path: '', component: SignupComponent}
     ])

@@ -28,6 +28,9 @@ export class SignupComponent implements OnInit, OnDestroy {
   errorOnSetUserData!: string;
   private _errorOnSetUserDataSubscription!: Subscription;
 
+  isLoading!: boolean;
+  private _isLoadingSubscription!: Subscription;
+
   constructor(
     private _formBuilder: FormBuilder,
     private _authService: AuthService,
@@ -35,8 +38,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.signupForm = this._formBuilder.group(
-      {
+    this.signupForm = this._formBuilder.group({
         name: new FormControl(null, [
           Validators.required,
           Validators.minLength(3),
@@ -84,11 +86,17 @@ export class SignupComponent implements OnInit, OnDestroy {
     this._authService.errorOnSetUserDataSubject.subscribe((error) => {
       this.errorOnSetUserData = error;
     });
+
+    this._isLoadingSubscription = this._authService.isLoadingSubject
+    .subscribe((boolean) => {
+      this.isLoading = boolean;
+    })
   }
 
   ngOnDestroy(): void {
     this._errorAuthMsgSubscription.unsubscribe();
     this._errorOnSetUserDataSubscription.unsubscribe();
+    this._isLoadingSubscription.unsubscribe();
 
     this._authService.errorAuthMsg = '';
     this._authService.errorAuthMsgSubject.next(this._authService.errorAuthMsg);

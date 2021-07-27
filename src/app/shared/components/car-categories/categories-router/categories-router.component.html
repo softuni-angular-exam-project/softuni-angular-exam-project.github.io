@@ -3,6 +3,7 @@
     <div class="categories__content">
       <p>Categories</p>
         <ul>
+          <app-loading-spinner *ngIf="!routerLinks"></app-loading-spinner>
           <li 
             *ngFor="let routerLink of routerLinks"
             [routerLink]="[ routerLink.link ]" routerLinkActive="categories-active">

@@ -1,6 +1,8 @@
 <div>
   <div class="container">
     <form class="sign-form" [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm)">
+      <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
       <div class="sign-form__sign-up-header">
         <h2>Sign up</h2>
       </div>

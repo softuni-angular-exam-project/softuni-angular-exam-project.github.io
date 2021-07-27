@@ -1,7 +1,12 @@
 <div class="car-item"
   (mouseover)="carCurrentImage = car.carHoverImg"
   (mouseout)="carCurrentImage = car.carImg">
-  <img class="car-item__img" [src]="carCurrentImage || car.carImg">
+
+  <div class="car-item__img">
+    <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+    <img [src]="carCurrentImage || car.carImg" (load)="afterImageIsLoaded()">
+  </div>
+
   <p class="car-item__info">{{ car.carInfo }}</p>
   <hr class="car-item__hr">
   <div class="car-item__prise">

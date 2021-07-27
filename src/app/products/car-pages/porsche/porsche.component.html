@@ -1,4 +1,5 @@
-<div>
+<div class="cars-container">
+  <app-loading-spinner *ngIf="!porscheCars"></app-loading-spinner>
   <app-car-item
     *ngFor="let carElement of porscheCars"
     [car]="carElement">

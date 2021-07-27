@@ -10,6 +10,7 @@ import { RouterLink } from '../shared/models/car.mode';
 })
 export class ProductsComponent implements OnInit {
   routerLinks!: RouterLink[];
+  errorOnGetrouterLinks: string = '';
 
   constructor(
     private _firestoreCollections: FirestoreCollectionsService,
@@ -17,15 +18,15 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this._firestoreCollections.getRouterLinks().subscribe((data) => {
-      this.routerLinks = data.map(e => {
+      this.routerLinks = data.map((e) => {
         return {
           id: e.payload.doc.id,
           ...e.payload.doc.data() as RouterLink
         }
       })      
-      // error = ''
+      this.errorOnGetrouterLinks = ''
     }, (error) => {
-      // error
+      this.errorOnGetrouterLinks = error.message;
     });
   }
 }

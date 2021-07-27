@@ -18,10 +18,16 @@
     width: 47%;
   }
   &__img {
+    position: relative;
+    min-height: 123px;
+    margin-bottom: 10px;
     box-shadow: 0px 0px 5px 1px rgba($black, 0.75);
     border-radius: 3px;
-    width: 100%;
-    margin-bottom: 10px;
+    img {
+      max-width: 100%;
+      border-radius: 3px;
+      display: block;
+    }
   }
   &__hr {
     margin: 15px 0px;

@@ -14,5 +14,4 @@ export class CategoriesRouterComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

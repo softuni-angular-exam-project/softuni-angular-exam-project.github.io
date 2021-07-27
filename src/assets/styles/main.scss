@@ -120,6 +120,24 @@ button:disabled {
   cursor: not-allowed;
 }
 
+//production car-item component styles
+.cars-container {
+  position: relative;
+  .loading-spinner {
+    align-items: flex-start !important;
+    background-color: transparent !important;
+    padding-top: 100px;
+  }
+}
+
+.car-item {
+  .loading-spinner {
+    align-items: center !important;
+    background-color: var(--color13) !important;
+    padding-top: 0;
+  }
+}
+
 //mat select - registration form
 .sign-select {
   .mat-form-field {

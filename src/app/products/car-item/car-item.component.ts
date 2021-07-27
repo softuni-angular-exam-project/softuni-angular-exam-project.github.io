@@ -10,10 +10,14 @@ export class CarItemComponent implements OnInit {
   @Input() car!: Car;
   carCurrentImage!: string;
   carId!: string;
+  isLoading: boolean = true;
   
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  afterImageIsLoaded() {
+    this.isLoading = false;
+  }
 }

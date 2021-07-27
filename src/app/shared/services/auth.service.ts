@@ -20,6 +20,9 @@ export class AuthService {
   errorOnSetUserData: string = '';
   errorOnSetUserDataSubject = new BehaviorSubject<string>(this.errorOnSetUserData);
 
+  isLoading: boolean = false;
+  isLoadingSubject = new BehaviorSubject<boolean>(this.isLoading);
+
   constructor(
     private _router: Router,
     private _firebaseAuth: AngularFireAuth,
@@ -27,11 +30,12 @@ export class AuthService {
   ) { }
 
   signUp(newUser: User) {
+    this.enableLoadingSpinner();
     this._firebaseAuth.createUserWithEmailAndPassword(newUser.email, newUser.password!)
     .then((user) => {
       newUser.uid = user.user!.uid;
       this._firestoreCollections.setUserData(newUser)
-      .then(() => {
+      .then(() => {          
           this.subscribeForDbCollectionUser(newUser.email);
           this._router.navigate(['/home']);
           this.errorOnSetUserData = '';
@@ -43,21 +47,26 @@ export class AuthService {
       );
       this.errorAuthMsg = '';
       this.errorAuthMsgSubject.next(this.errorAuthMsg);
+      this.disableLoadingSpinner();
     }, (error) => {
       this.errorAuthHandler(error);
+      this.disableLoadingSpinner();
     });
   }
 
   signIn(email: string, password: string) {
+    this.enableLoadingSpinner();
     this._firebaseAuth.signInWithEmailAndPassword(email, password)
     .then(() => {        
         this.subscribeForDbCollectionUser(email);
         this._router.navigate(['/home']);
         this.errorAuthMsg = '';
         this.errorAuthMsgSubject.next(this.errorAuthMsg);
+        this.disableLoadingSpinner();
       },
       (error) => {
         this.errorAuthHandler(error);
+        this.disableLoadingSpinner();
       }
     );
   }
@@ -124,4 +133,14 @@ export class AuthService {
       }
     }
   };
+
+  enableLoadingSpinner() {
+    this.isLoading = true;
+    this.isLoadingSubject.next(this.isLoading);
+  }
+
+  disableLoadingSpinner() {
+    this.isLoading = false;
+    this.isLoadingSubject.next(this.isLoading);
+  }
 }

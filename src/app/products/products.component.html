@@ -1,2 +1,5 @@
-<app-categories-info></app-categories-info>
-<app-categories-router [routerLinks]="routerLinks"></app-categories-router>
+<div class="container">
+  <app-categories-info></app-categories-info>
+  <p class="error-msg" *ngIf="errorOnGetrouterLinks">{{ errorOnGetrouterLinks }}</p>
+  <app-categories-router [routerLinks]="routerLinks"></app-categories-router>
+</div>
