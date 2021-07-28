@@ -1,1 +1,6 @@
-<p>buy-car works!</p>
+<div>
+  <p *ngIf="getCarLinksErrorMsg" class="error-msg">{{ getCarLinksErrorMsg }}</p>
+  <app-categories-router 
+    [routerLinks]="routerLinks">
+  </app-categories-router>
+</div>

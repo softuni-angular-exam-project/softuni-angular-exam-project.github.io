@@ -114,4 +114,42 @@ export class FirestoreCollectionsService {
     return this._firestore
     .collection(car.model).doc(car.id).set(car);
   }
+
+  getSecondHandAudi() {
+    return this._firestore
+    .collection('Audi', data => data.orderBy('date', 'desc'))
+    .snapshotChanges();
+  }
+
+  getSecondHandBMW() {
+    return this._firestore
+    .collection('BMW', data => data.orderBy('date', 'desc'))
+    .snapshotChanges();
+  }
+
+  setSecondHanCurrentImages(url: any){
+    return this._firestore
+    .collection(url.doc).doc(url.id)
+    .update({
+      carImages: url.currentImgs
+    });
+  }
+
+  updateSecondHanImagesCar(url: any){
+    return this._firestore
+    .collection(url.doc).doc(url.id)
+    .update({
+      carImages: firebase.default.firestore.FieldValue.arrayUnion(url.img)
+    });
+  }
+
+  updateSecondHandCar(newInfo: any){
+    return this._firestore
+    .collection(newInfo.doc).doc(newInfo.id)
+    .update({
+      carImg: newInfo.carImg,
+      description: newInfo.description,
+      price: newInfo.price
+     })
+  }
 }

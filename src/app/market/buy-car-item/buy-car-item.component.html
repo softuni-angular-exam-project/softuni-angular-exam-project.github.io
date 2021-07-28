@@ -1,1 +1,123 @@
-<p>buy-car-item works!</p>
+<div class="car-buy-item car-item">
+  <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+  <div class="car-buy-item__car-img" [ngStyle]="{'background-image': 'url(\'' + car?.carImg + '\')'}">
+  </div>
+  <div class="car-buy-item__model">
+    <p>{{ car.model }}</p>
+    <p>{{ car.year }}</p>
+  </div>
+  <hr class="car-item__hr">
+  <div class="car-buy-item__description">
+    <p>{{ car.description }}</p>
+  </div>
+  <hr class="car-item__hr">
+  <div class="car-item__prise">
+    <div>
+      <p>&#36; {{ car.price }}</p>
+    </div>
+    <div class="add-to-cart">
+      <p>Add to Cart</p>
+    </div>
+  </div>
+  <hr class="car-item__hr">
+  <div class="car-buy-item__owner-info">
+    <div class="owner">
+      <p>Owner</p>
+      <div *ngIf="user?.email == car.owner">
+        <button class="btn-default narrow-btn" type="button" (click)="edit()">Edit Car</button>
+      </div>
+    </div>
+    <div class="owner-avatar" [ngStyle]="{'background-image': (car.owner | getUserInfo:'userImg' | async)}">
+    </div>
+    <div class="owner-info">
+      <p>Name: {{car.owner | getUserInfo:'name' | async}}</p>
+      <p>
+        Phone:
+        <a href="tel:
+            {{car.owner | getUserInfo:'phoneCode' | async}}
+            {{car.owner | getUserInfo:'phone' | async}}">
+          +{{car.owner | getUserInfo:'phoneCode' | async}} {{car.owner | getUserInfo:'phone' | async}}
+        </a>
+      </p>
+      <p>Email: <a href="mailto:{{ car.owner }}">{{ car.owner }}</a></p>
+    </div>
+  </div>
+  <div>
+    <p>Created: {{ car.date.toDate() | date:'dd.MM.yyyy' }}</p>
+  </div>
+  <div>
+    <div *ngIf="car.carImages!.length > 0" class="car-item__images">
+      <button class="btn-default narrow-btn" (click)="onShowCarImages(car.id!)">View Images</button>
+      <app-car-images *ngIf="carImagesParams.carShowImages && carImagesParams.carId==car.id" [carImgs]="car.carImages!"></app-car-images>
+    </div>
+    <p class="no-car-images" *ngIf="car.carImages!.length == 0">No images uploaded</p>
+  </div>
+
+  <div class="edit-container" *ngIf="isInEditMode">
+    <form class="edit-container__form" [formGroup]="changeCarDetailsForm" (ngSubmit)="submitCarDetailChanges(changeCarDetailsForm)">
+      <div class="edit-container__form__car-img">
+        <input formControlName="carImg" #chooseCarImg style="display: none;" type="file"
+          (change)="onChooseCarImg($event)" accept=".png,.jpg,.jpeg,.svg,.heic">
+          <div class="car-img-container">
+            <img [src]="carImgLocalPath">
+          </div>          
+        <button class="btn-default narrow-btn" type="button" (click)="chooseCarImg.click()">Change Car Image</button>
+      </div>
+      <hr class="car-item__hr">
+      <div class="edit-container__form__text-area">
+        <p class="label-el">Description</p>
+        <textarea formControlName="description"></textarea>
+      </div>
+      <div class="edit-container__form__price">
+        <p class="label-el">Price</p>
+        <input type="number" name="price" formControlName="price">
+      </div>
+      <hr class="car-item__hr">
+      <div class="edit-container__form__car-images">
+        <div>
+          <div *ngIf="!car.carImages || currentCarImages.length == 0">
+            <p class="label-el no-images">There are no images uploaded</p>
+          </div>
+          <div class="images-container" *ngIf="currentCarImages.length > 0">
+            <p class="label-el">Current Images</p>
+            <div class="images">
+              <div class="img-element" *ngFor="let carImage of currentCarImages; let i = index">
+                <img [src]="carImage">
+                <div (click)="deleteCurrentImages(i, carImage)">X</div>
+              </div>
+            </div>
+          </div>
+          <div class="images-container" *ngIf="carImgLocalPaths.length > 0">
+            <p class="label-el">New Images</p>
+            <div class="images">
+              <div class="img-element"  *ngFor="let carImage of carImgLocalPaths let i = index">
+                <img [src]="carImage">
+                <div (click)="removeCarImg(i)">X</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="select-images">
+          <input formControlName="carImgs" #chooseCarImgs style="display: none;" type="file"
+            (change)="onChooseCarImgs($event)" accept=".png,.jpg,.jpeg,.svg,.heic" multiple="multiple">
+          <button type="button" class="btn-default narrow-btn ng-star-inserted" (click)="chooseCarImgs.click()">
+            Select Images
+          </button>
+        </div>
+      </div>
+      <hr class="car-item__hr">
+      <div class="edit-container__form__buttons">
+        <button class="btn-default narrow-btn submit" type="submit">Apply Changes</button>
+        <button class="btn-default narrow-btn" type="button" (click)="cancelChanges()">Cancel</button>
+      </div>
+      <div>
+        <p *ngIf="uploadCarImagesToFirestoreError" class="error-msg">{{ uploadCarImagesToFirestoreError }}</p>
+        <p *ngIf="updateSecondHandCarError" class="error-msg">{{ updateSecondHandCarError }}</p>
+        <p *ngIf="setcarImgURLsError" class="error-msg">{{ setcarImgURLsError }}</p>
+        <p *ngIf="deleteOldImgError" class="error-msg">{{ deleteOldImgError }}</p>
+        <p *ngIf="getCarImgURLError" class="error-msg">{{ getCarImgURLError }}</p>
+        <p *ngIf="uploadCarImgToFirestoreError" class="error-msg">{{ uploadCarImgToFirestoreError }}</p>
+      </div>
+    </form>
+  </div>
+</div>

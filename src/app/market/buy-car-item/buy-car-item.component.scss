@@ -1,0 +1,307 @@
+@import "/src/assets/styles/variables/colors";
+@import "/src/assets/styles/mixins/shortand";
+@import "/src/assets/styles/mixins/media";
+
+.car-buy-item {
+  &__car-img {
+    width: 100%;
+    padding-top: 56.25%;
+    position: relative;
+    margin-bottom: 15px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 3px;
+    box-shadow: 0px 0px 5px 1px rgba($black, 0.75);
+    img {
+      position: absolute;
+      height: 100%;
+      top: 0;
+      margin-left: 50%;
+      transform: translate(-50%);
+      box-shadow: 0px 0px 5px 1px rgba($black, 0.75);
+      border-radius: 3px;
+    }
+  }
+  &__model {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  &__description {
+    white-space: pre-line;
+    overflow: auto;
+    height: 75px;
+    @include scrollbar(normal);
+  }
+  &__owner-info {
+    .owner {
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      p {
+        font-size: 1.1em;
+        color: $red;
+        font-weight: bold;
+      }
+    }
+    .owner-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 3px solid $red;
+      background-size: cover;
+      background-position: center;
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 15px;
+    }
+    .owner-info {
+      margin-bottom: 15px;
+      a {
+        color: $red !important;
+      }
+    }
+  }
+  .no-car-images {
+    padding: 12px 0;
+    text-align: center;
+  }
+}
+
+.car-item {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 3px;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 5px 1px rgba($black, 0.75);
+  width: 96%;
+  background-color: var(--color12);
+  border: 1px solid var(--color9);
+  color: var(--color6);
+  display: inline-block;
+  vertical-align:top;
+  @include media (med) {
+    width: 47%;
+  }
+  &__img {
+    box-shadow: 0px 0px 5px 1px rgba($black, 0.75);
+    border-radius: 3px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  &__hr {
+    margin: 15px 0px;
+    border: none;
+    border-top: 1px solid $red;
+  }
+  &__info {
+    text-align: center;
+  }
+  &__prise {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;    
+    .add-to-cart {
+      width: 106px;
+      box-sizing: border-box;
+      color: $gray;
+      cursor: pointer;
+      padding-right: 20px;
+      background-image: url("../../../assets/images/shared/plus.png");
+      background-repeat: no-repeat;
+      background-position: right;
+      @include hover (normal) {
+        color: $red;
+      }
+    }
+  }
+  &__images {
+    margin-top: 15px;
+    text-align: center;
+  }
+}
+
+.edit-container {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba($black, 0.9);
+  z-index: 500;
+  &__form {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 10px;
+    height: calc(100vh - 50px);
+    overflow: auto;
+    box-sizing: border-box;
+    @include scrollbar(normal);
+    &__car-img {
+      text-align: center;
+      .car-img-container {
+        margin-bottom: 15px;
+        img {
+          max-width: 200px;
+          max-height: 112px;
+        }
+      }
+    }
+    &__text-area {
+      margin: 0 auto;
+      max-width: 500px;
+      textarea {
+        @include default-textarea;
+        @include scrollbar(normal);
+      }
+      p {
+      }
+    }
+    &__price {
+      margin: 0 auto;
+      max-width: 500px;
+      color: var(--color7);
+      input {
+        border-radius: 3px;
+        background-color: var(--color12);
+        border: 1px solid var(--color8);
+        color: var(--color7);
+        outline: none;
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+        @include inputNoArrows;
+      }
+    }
+    &__car-images {
+      .images-container {
+        .images {
+          max-height: 400px;
+          padding: 10px;
+          flex-wrap: wrap;
+          overflow: auto;
+          border-radius: 3px;
+          background-color: var(--color12);
+          border: 1px solid var(--color8);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 10px;
+          .img-element {
+            @include image-container-images;
+          }
+        }
+      }
+      .no-images {
+        text-align: center;
+      }
+      .select-images {
+        text-align: center;
+      }
+    }
+    &__buttons {
+      text-align: center;
+      .submit {
+        margin-right: 15px;
+      }
+    }
+    .label-el {
+      padding-bottom: 10px;
+      color: $white;
+    }
+  }
+}
+
+.edit-container {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba($black, 0.9);
+  z-index: 500;
+  &__form {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 10px;
+    height: calc(100vh - 50px);
+    overflow: auto;
+    box-sizing: border-box;
+    @include scrollbar(normal);
+    &__car-img {
+      text-align: center;
+      .car-img-container {
+        margin-bottom: 15px;
+        img {
+          max-width: 200px;
+          max-height: 112px;
+        }
+      }
+    }
+    &__text-area {
+      margin: 0 auto;
+      max-width: 500px;
+      textarea {
+        @include default-textarea;
+        @include scrollbar(normal);
+      }
+      p {
+      }
+    }
+    &__price {
+      margin: 0 auto;
+      max-width: 500px;
+      color: var(--color7);
+      input {
+        border-radius: 3px;
+        background-color: var(--color12);
+        border: 1px solid var(--color8);
+        color: var(--color7);
+        outline: none;
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+        @include inputNoArrows;
+      }
+    }
+    &__car-images {
+      .images-container {
+        .images {
+          max-height: 400px;
+          padding: 10px;
+          flex-wrap: wrap;
+          overflow: auto;
+          border-radius: 3px;
+          background-color: var(--color12);
+          border: 1px solid var(--color8);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 10px;
+          .img-element {
+            @include image-container-images;
+          }
+        }
+      }
+      .no-images {
+        text-align: center;
+      }
+      .select-images {
+        text-align: center;
+      }
+    }
+    &__buttons {
+      text-align: center;
+      .submit {
+        margin-right: 15px;
+      }
+    }
+    .label-el {
+      padding-bottom: 10px;
+      color: $white;
+    }
+  }
+}

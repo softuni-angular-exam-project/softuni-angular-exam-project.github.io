@@ -1,127 +1,127 @@
-@import "/src/assets/styles/variables/colors";
-@import "/src/assets/styles/mixins/media";
-@import "/src/assets/styles/mixins/shortand";
-@import "/src/assets/styles/mixins/fonts";
-@import "/src/assets/styles/mixins/hovers";
+@import '/src/assets/styles/variables/colors';
+@import '/src/assets/styles/mixins/media';
+@import '/src/assets/styles/mixins/shortand';
+@import '/src/assets/styles/mixins/fonts';
+@import '/src/assets/styles/mixins/hovers';
 
 .sell-car-container {
-    position: relative;
-    background-color: var(--color2);
-    box-shadow: 0px 0px 10px 1px rgba($black, 0.75);
-    border-radius: 3px;
-    &__form {
-      max-width: 767px;
-      padding: 20px;
-      margin: 0 auto;
-      &__drop-downs {
-        @include media (med) {
-          display: flex;
-          align-items: stretch;
-          justify-content: space-between;
-        }
-        .price {
+  position: relative;
+  background-color: var(--color2);
+  box-shadow: 0px 0px 10px 1px rgba($black, 0.75);
+  border-radius: 3px;
+  &__form {
+    max-width: 767px;
+    padding: 20px;
+    margin: 0 auto;
+    &__drop-downs {
+      @include media(med) {
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+      }
+      .price {
+        color: var(--color7);
+        input {
+          border-radius: 3px;
+          background-color: rgba($white, 0.5);
+          border: 1px solid var(--color8);
           color: var(--color7);
-          input {
-            border-radius: 3px;
-            background-color: rgba($white, 0.5);
-            border: 1px solid var(--color8);
-            color: var(--color7);
-            outline: none;
-            padding: 10px;
-            width: 100%;
-            box-sizing: border-box;
-            @include inputNoArrows;
-          }
+          outline: none;
+          padding: 10px;
+          width: 100%;
+          box-sizing: border-box;
+          @include inputNoArrows;
         }
-        &__el {
+      }
+      &__el {
+        &:nth-child(2),
+        &:nth-child(3) {
+          margin-top: 15px;
+        }
+        @include media(med) {
+          width: 33%;
           &:nth-child(2),
           &:nth-child(3) {
-            margin-top: 15px;
+            margin-top: 0;
           }
-        @include media (med) {
-            width: 33%;
-            &:nth-child(2),
-            &:nth-child(3) {
-                margin-top: 0;
+        }
+      }
+    }
+    &__car-images {
+      .img-container {
+        max-height: 400px;
+        padding: 10px;
+        flex-wrap: wrap;
+        overflow: auto;
+        border-radius: 3px;
+        background-color: rgba($white, 0.5);
+        border: 1px solid var(--color8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @include scrollbar(normal);
+        .img-element {
+          position: relative;
+          padding: 3px;
+          img {
+            max-width: 200px;
+            max-height: 112px;
+            border-radius: 3px;
+          }
+          div {
+            position: absolute;
+            top: 7px;
+            right: 7px;
+            width: 6px;
+            height: 6px;
+            font-weight: bold;
+            background-color: $red;
+            border-radius: 50% !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            @include btn;
+            @include hover(normal) {
+              background-color: darken($red, 10%);
             }
           }
         }
       }
-        &__car-images {
-          .img-container {
-            max-height: 400px;
-            padding: 10px;
-            flex-wrap: wrap;
-            overflow: auto;
-            border-radius: 3px;
-            background-color: rgba($white, 0.5);
-            border: 1px solid var(--color8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            @include scrollbar(normal);
-            .img-element {
-              position: relative;
-              padding: 3px;
-              img {
-                max-width: 200px;
-                max-height: 112px;
-                border-radius: 3px;
-              }
-              div {
-                position: absolute;
-                top: 7px;
-                right: 7px;
-                width: 6px;
-                height: 6px;
-                font-weight: bold;
-                background-color: $red;
-                border-radius: 50% !important;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                @include btn;
-                @include hover(normal) {
-                  background-color: darken($red, 10%);
-                }
-              }
-            }
-          }
-        }
-        &__hr {
-          margin: 15px 0px;
-          border: none;
-          border-top: 1px solid $red;
-        }
-        .el-label {
-          color: var(--color7);
-          margin-bottom: 5px;
-        }
-        .defaut-img {
-          text-align: center;
-          img {
-            max-width: 200px;
-            max-height: 112px;
-            margin: 0 auto;
-            display: block;
-            border-radius: 3px;
-          }
-        }
-        .button {
-          margin: 15px auto;
-          display: block;
-        }
-        .error {
-          color: $red;
-        }
-        .info-text {
-          color: $red;
-          text-align: center;
-          padding: 5px 0;
-        }
-        .textarea {
-          @include default-textarea;
-          @include scrollbar(normal);
-        }
     }
+    &__hr {
+      margin: 15px 0px;
+      border: none;
+      border-top: 1px solid $red;
+    }
+    .el-label {
+      color: var(--color7);
+      margin-bottom: 5px;
+    }
+    .defaut-img {
+      text-align: center;
+      img {
+        max-width: 200px;
+        max-height: 112px;
+        margin: 0 auto;
+        display: block;
+        border-radius: 3px;
+      }
+    }
+    .button {
+      margin: 15px auto;
+      display: block;
+    }
+    .error {
+      color: $red;
+    }
+    .info-text {
+      color: $red;
+      text-align: center;
+      padding: 5px 0;
+    }
+    .textarea {
+      @include default-textarea;
+      @include scrollbar(normal);
+    }
+  }
 }

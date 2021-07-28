@@ -6,15 +6,19 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { CommentsComponent } from "./comments.component";
 import { CommentComponent } from './comment/comment.component';
 import { CommentFormComponent } from './comment-form/comment-form.component';
+import { SharedModule } from "../shared/shared.module";
+import { CommentElComponent } from './comment/comment-el/comment-el.component';
 
 @NgModule ({
   declarations: [
     CommentsComponent,
     CommentComponent,
-    CommentFormComponent
+    CommentFormComponent,
+    CommentElComponent
   ],
   imports: [
     CommonModule,
+    SharedModule,
     ReactiveFormsModule,
     RouterModule.forChild([
       {path: '', component: CommentsComponent}

@@ -81,7 +81,7 @@ export class SellCarComponent implements OnInit {
       this.getCarManufactureYearError = '';      
     }, error => {
       this.getCarManufactureYearError = error.message;     
-    });    
+    });
   }
 
   onSubmit(sellCarForm: FormGroup) {

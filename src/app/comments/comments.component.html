@@ -9,7 +9,9 @@
         [isAuth]="isAuth">
       </app-comment>
     </div>
+
     <hr class="hr-border">
+
     <div *ngIf="!currentCommentId && isAuth">
       <app-comment-form></app-comment-form>
     </div>

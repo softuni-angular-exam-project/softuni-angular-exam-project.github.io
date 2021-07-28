@@ -1,1 +1,10 @@
-<p>audi works!</p>
+<div class="cars-container">
+  <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+  <div class="cars">
+    <app-buy-car-item 
+      *ngFor="let carElement of audiCars" 
+      [car]="carElement">
+    </app-buy-car-item>
+  </div>
+  <p *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</p>
+</div>

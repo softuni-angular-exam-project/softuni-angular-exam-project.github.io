@@ -1,5 +1,5 @@
 export class Car {
-  constructor(
+  constructor (
     public carImg: string,
     public carHoverImg: string,
     public carInfo: string,
@@ -11,7 +11,7 @@ export class Car {
 }
 
 export class RouterLink {
-  constructor(
+  constructor (
     public name: string,
     public link: string,
     public date: firebase.default.firestore.Timestamp
@@ -19,21 +19,21 @@ export class RouterLink {
 }
 
 export class CarsForSell {
-  constructor(
+  constructor (
     public model: string,
     public year: number,
     public carImg: string,
     public description: string,
     public price: string,
     public owner: string,
-    public id: string,
     public date: firebase.default.firestore.Timestamp,
+    public id?: string,
     public carImages?: any []
   ){}
 }
 
 export class CarManufactureYear {
-  constructor(
+  constructor (
     public year: number
   ){}	
 }
