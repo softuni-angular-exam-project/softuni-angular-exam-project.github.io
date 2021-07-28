@@ -7,3 +7,10 @@ export class NavParameters {
     public windowWidth: number
   ){}
 }
+
+export class CarImagesParameters {
+  constructor(
+    public carShowImages: boolean,
+    public carId: string
+  ){}
+}

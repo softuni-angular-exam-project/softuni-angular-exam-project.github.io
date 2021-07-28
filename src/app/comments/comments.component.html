@@ -3,12 +3,16 @@
     <p class="comments">Comments</p>
 
     <div *ngIf="comments">
-      <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
+      <app-comment 
+        *ngFor="let comment of comments" 
+        [comment]="comment"
+        [isAuth]="isAuth">
+      </app-comment>
     </div>
     <hr class="hr-border">
     <div *ngIf="!currentCommentId && isAuth">
       <app-comment-form></app-comment-form>
     </div>
-    <p *ngIf="!isAuth">sdsada</p>
+    <p class="comments-auth" *ngIf="!isAuth">Please Sign in to add your comment!</p>
   </div>
 </div>

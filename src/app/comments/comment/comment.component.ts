@@ -11,6 +11,7 @@ import { CommentIdService } from '../current-comment-id.service';
 })
 export class CommentComponent implements OnInit, OnDestroy {
   @Input() comment!: Comment;
+  @Input() isAuth!: boolean;
 
   currentCommentId!: string;
   private _currentCommentIdSubscription!: Subscription;

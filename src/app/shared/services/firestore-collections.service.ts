@@ -5,6 +5,7 @@ import * as firebase from 'firebase/app';
 
 import { User } from '../models/user.model';
 import { Comment } from '../models/comment.model';
+import { CarsForSell } from '../models/car.model';
 
 @Injectable({ providedIn: 'root' })
 export class FirestoreCollectionsService {
@@ -95,5 +96,22 @@ export class FirestoreCollectionsService {
 
   delete(url: string) {
     return this._storage.storage.refFromURL(url).delete();
+  }
+
+  getSecondHandCarsLink() {
+    return this._firestore
+    .collection('buyCarLinks', data => data.orderBy('date', 'asc'))
+    .snapshotChanges();
+  }
+
+  getCarManufactureYears() {
+    return this._firestore
+    .collection('carManufactureYears', data => data.orderBy('year', 'desc'))
+    .snapshotChanges();
+  }
+
+  setSecondHandCar(car: CarsForSell) {
+    return this._firestore
+    .collection(car.model).doc(car.id).set(car);
   }
 }

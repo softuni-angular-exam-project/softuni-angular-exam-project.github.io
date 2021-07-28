@@ -4,8 +4,8 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../shared/services/auth.service';
 import { Animations } from '../shared/animations';
 import { User } from '../shared/models/user.model';
-import { NavParamsService } from './nav-params.service';
-import { NavParameters } from '../shared/models/nav-params.model';
+import { SharedParamsService } from '../shared/services/shared-params.service';
+import { NavParameters } from '../shared/models/shared-params.model';
 
 @Component({
   selector: 'app-header',
@@ -18,11 +18,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   user!: User;
 
   navParams!: NavParameters;
-  private _navParamsSubscription!: Subscription;
+  private _sharedParamsSubscription!: Subscription;
 
   constructor(
     private _authService: AuthService,
-    private _navParamsService: NavParamsService
+    private _sharedParamsService: SharedParamsService
   ) { }
 
   ngOnInit(): void {
@@ -31,30 +31,30 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.isAuth = user ? true : false;
     });
 
-    this._navParamsSubscription = this._navParamsService.navParamsSubject
+    this._sharedParamsSubscription = this._sharedParamsService.navParamsSubject
     .subscribe((params) => {
       this.navParams = params;
     })
   }
 
   ngOnDestroy(): void {
-    this._navParamsSubscription.unsubscribe();
+    this._sharedParamsSubscription.unsubscribe();
   }
 
   onSwithcNavigationMenuState() {
-		this._navParamsService.swithcNavigationMenuState();
+		this._sharedParamsService.swithcNavigationMenuState();
   }
 
   onDisableButton() {
-    this._navParamsService.disableButton();
+    this._sharedParamsService.disableButton();
 	}
 
 	onEnableButton() {
-    this._navParamsService.enableButton();
+    this._sharedParamsService.enableButton();
   }
 
   onOverlayClick() {
-    this._navParamsService.overlayClick();
+    this._sharedParamsService.overlayClick();
   }
 
   @HostListener('window:resize', ['$event'])

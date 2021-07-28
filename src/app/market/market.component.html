@@ -1,1 +1,18 @@
-<p>market works!</p>
+<div class="container">
+	<app-categories-info></app-categories-info>
+	<div class="sell-buy-car">
+		<ul class="sell-buy-car__router-links">
+			<li 
+				[routerLink]="['buy']" 
+				routerLinkActive="categories-active">
+				Buy Second Hand Car
+			</li>
+			<li 
+				[routerLink]="['sell']" 
+				routerLinkActive="categories-active">
+				Sell Your Car
+			</li>
+		</ul>
+		<router-outlet></router-outlet>
+	</div>
+</div>

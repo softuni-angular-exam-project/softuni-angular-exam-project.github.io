@@ -1,29 +1,27 @@
-<div class="container">
-  <div class="categories">
-    <div class="categories__content">
-      <p>Categories</p>
-        <ul>
-          <app-loading-spinner *ngIf="!routerLinks"></app-loading-spinner>
-          <li 
-            *ngFor="let routerLink of routerLinks"
-            [routerLink]="[ routerLink.link ]" routerLinkActive="categories-active">
-            {{ routerLink.name }}
-          </li>
-        </ul>
-  
-      <div class="call-us">
-        <ng-container [ngTemplateOutlet]="callUs"></ng-container>
-      </div>
+<div class="categories">
+  <div class="categories__content">
+    <p>Categories</p>
+      <ul>
+        <app-loading-spinner *ngIf="!routerLinks"></app-loading-spinner>
+        <li 
+          *ngFor="let routerLink of routerLinks"
+          [routerLink]="[ routerLink.link ]" routerLinkActive="categories-active">
+          {{ routerLink.name }}
+        </li>
+      </ul>
+
+    <div class="call-us">
+      <ng-container [ngTemplateOutlet]="callUs"></ng-container>
     </div>
-  
-    <div class="categories__router">
-      <router-outlet></router-outlet>
-    </div>  
   </div>
-  
-  <div class="call-us-mob">
-    <ng-container [ngTemplateOutlet]="callUs"></ng-container>
-  </div>
+
+  <div class="categories__router">
+    <router-outlet></router-outlet>
+  </div>  
+</div>
+
+<div class="call-us-mob">
+  <ng-container [ngTemplateOutlet]="callUs"></ng-container>
 </div>
 
 <ng-template #callUs>

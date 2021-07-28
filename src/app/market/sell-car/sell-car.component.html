@@ -1,0 +1,144 @@
+<div class="sell-car-container">
+	<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+	<div>
+		<p *ngIf="getCarModelsError" class="error-msg">{{ getCarModelsError }}</p>
+		<p *ngIf="getCarManufactureYearError" class="error-msg">{{ getCarManufactureYearError }}</p>
+	</div>
+
+	<form 
+    class="sell-car-container__form" 
+    [formGroup]="sellCarForm" 
+    (ngSubmit)="onSubmit(sellCarForm)">
+
+		<div class="sell-car-container__form__drop-downs">
+			<div class="sell-car-container__form__drop-downs__el">
+				<p class="el-label">Model</p>
+				<mat-form-field 
+          [ngClass]="{'invalid no-border': 
+            sellCarForm.get('model')!.invalid && 
+            sellCarForm.get('model')!.touched}">
+
+					<mat-select formControlName="model">
+						<mat-option 
+              *ngFor="let carModel of carModels" 
+              [value]="carModel.name">
+							{{ carModel.name }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<p 
+          class="error" 
+          *ngIf="sellCarForm.get('model')!.invalid && 
+          sellCarForm.get('model')!.touched">
+					The field is required!
+				</p>
+			</div>
+
+			<div class="sell-car-container__form__drop-downs__el">
+				<p class="el-label">Year</p>
+				<mat-form-field 
+          [ngClass]="{'invalid no-border': 
+            sellCarForm.get('year')!.invalid && 
+            sellCarForm.get('year')!.touched}">
+
+					<mat-select formControlName="year">
+						<mat-option 
+              *ngFor="let carManufactureYear of carManufactureYears" 
+              [value]="carManufactureYear.year">
+							{{ carManufactureYear.year }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<p 
+          class="error" 
+          *ngIf="sellCarForm.get('year')!.invalid && 
+          sellCarForm.get('year')!.touched">
+					The field is required!
+				</p>
+			</div>
+
+			<div class="sell-car-container__form__drop-downs__el price">
+				<p class="el-label">Price</p>
+				<input type="number" name="price" formControlName="price">
+				<p 
+        class="error" 
+        *ngIf="sellCarForm.get('price')!.invalid && 
+        sellCarForm.get('price')!.touched">
+					The field is required!
+				</p>
+			</div>
+		</div>
+
+		<hr class="sell-car-container__form__hr">	
+
+		<div>
+			<div class="defaut-img">
+				<img [src]="carImgLocalPath">
+			</div>
+			<input formControlName="carImg"
+        #chooseCarImg style="display: none;"
+        type="file" 
+        (change)="onChooseCarImg($event)" 
+        accept=".png,.jpg,.jpeg,.svg,.heic">
+			<button 
+        type="button" 
+        class="button btn-default narrow-btn ng-star-inserted" 
+        (click)="chooseCarImg.click()">
+        Chоose Car Image
+      </button>
+			<p class="info-text">(The field is mandatory)</p>
+		</div>
+		<hr class="sell-car-container__form__hr">
+		<div>
+			<textarea class="textarea" placeholder="Description..." formControlName="description"></textarea>
+			<p 
+        class="error" 
+        *ngIf="sellCarForm.get('description')!.invalid && 
+        sellCarForm.get('description')!.touched">
+				Please enter information about the condition of your car!
+			</p>
+		</div>
+		<hr class="sell-car-container__form__hr">
+		<div class="sell-car-container__form__car-images">
+			<div class="defaut-img" *ngIf="carImgLocalPaths.length == 0">
+				<img [src]="carDefaultImg">
+			</div>			
+			<div class="img-container" *ngIf="carImgLocalPaths.length > 0">
+				<div class="img-element" *ngFor="let carImgLocalPath of carImgLocalPaths; let i = index">
+					<img [src]="carImgLocalPath">
+					<div (click)="removeCarImg(i)">X</div>
+				</div>
+			</div>
+			<button 
+        type="button" 
+        class="button btn-default narrow-btn ng-star-inserted" 
+        (click)="chooseCarImgs.click()">
+        Chоose Car Images
+      </button>
+			<p class="info-text">(You could add images later)</p>
+			<input formControlName="carImgs"
+        #chooseCarImgs style="display: none;"
+        type="file" 
+        (change)="onChooseCarImgs($event)" 
+        accept=".png,.jpg,.jpeg,.svg,.heic"
+        multiple="multiple">			
+		</div>
+		<hr class="sell-car-container__form__hr">
+		<div>
+      <button 
+        type="submit" 
+        [disabled]="sellCarForm.invalid" 
+        class="button btn-default narrow-btn ng-star-inserted">
+        Add to the Shop
+      </button>
+		</div>
+		<div>
+			<p *ngIf="sellCarError" class="error-msg">{{ sellCarError }}</p>
+			<p *ngIf="uploadCarImgToFirestoreError" class="error-msg">{{ uploadCarImgToFirestoreError }}</p>
+			<p *ngIf="uploadCarImagesToFirestoreError" class="error-msg">{{ uploadCarImagesToFirestoreError }}</p>
+			<p *ngIf="getCarImgURLError" class="error-msg">{{ getCarImgURLError }}</p>
+			<p *ngIf="getcarImgURLsError" class="error-msg">{{ getcarImgURLsError }}</p>
+		</div>
+	</form>
+</div>

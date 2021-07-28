@@ -1,3 +1,15 @@
-<div>
-  <p *ngFor="let image of carImgs">{{image}}</p>
+<div class="car-images-container">
+  <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+  <div class="car-images">
+    <div class="car-images__current-image">
+      <img [src]="currentImgUrl" (load)="afterImageIsLoaded()">
+    </div>
+    <div class="car-images__images">
+      <img *ngFor="let imageUrl of carImgs let i = index" 
+        [src]="imageUrl"
+        [ngClass]="{'active-image' : currentImgIndex == i}"
+        (click)="changeImg(imageUrl, i)">
+    </div>  
+    <div class="car-images__close-btn" (click)="onHideCarImages()">X</div>
+  </div>
 </div>

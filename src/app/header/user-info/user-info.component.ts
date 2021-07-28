@@ -8,8 +8,8 @@ import { FirestoreCollectionsService } from 'src/app/shared/services/firestore-c
 import { PhoneCode } from 'src/app/shared/models/phone-code.model';
 import { Animations } from '../../shared/animations';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { NavParameters } from 'src/app/shared/models/nav-params.model';
-import { NavParamsService } from '../nav-params.service';
+import { NavParameters } from 'src/app/shared/models/shared-params.model';
+import { SharedParamsService } from '../../shared/services/shared-params.service';
 import { ThemeService } from '../theme.service';
 
 @Component({
@@ -34,12 +34,12 @@ export class UserInfoComponent implements OnInit, OnDestroy {
   darkMode!: boolean;
 
   navParams!: NavParameters;
-  private _navParamsSubscription!: Subscription;
+  private _sharedParamsSubscription!: Subscription;
 
   constructor(
     private _firestoreCollections: FirestoreCollectionsService,
     private _authService: AuthService,
-    private _navParamsService: NavParamsService,
+    private _sharedParamsService: SharedParamsService,
     private _angularFireStorage: AngularFireStorage,
     private _themeService: ThemeService
   ) { }
@@ -62,7 +62,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
       this.errorMsgOnloadPhoneCodes = error.message;
     });
 
-    this._navParamsSubscription = this._navParamsService.navParamsSubject
+    this._sharedParamsSubscription = this._sharedParamsService.navParamsSubject
     .subscribe((params) => {
       this.navParams = params;
     });
@@ -73,19 +73,19 @@ export class UserInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._navParamsSubscription.unsubscribe();
+    this._sharedParamsSubscription.unsubscribe();
   }
 
   onSwithcUserInfoState() {
-    this._navParamsService.swithcUserInfoState();
+    this._sharedParamsService.swithcUserInfoState();
   }
 
   onDisableButton() {
-    this._navParamsService.disableButton();
+    this._sharedParamsService.disableButton();
 	}
 
 	onEnableButton() {
-    this._navParamsService.enableButton();
+    this._sharedParamsService.enableButton();
   }
 
   changeImgMode() {
@@ -174,7 +174,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
-    this._navParamsService.resetParamsToDefault();
+    this._sharedParamsService.resetParamsToDefault();
 
     //exit after the end of the animation
     setTimeout(() => {      

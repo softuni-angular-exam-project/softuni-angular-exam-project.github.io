@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Car } from 'src/app/shared/models/car.mode';
+import { Car } from 'src/app/shared/models/car.model';
 import { FirestoreCollectionsService } from 'src/app/shared/services/firestore-collections.service';
 
 @Component({

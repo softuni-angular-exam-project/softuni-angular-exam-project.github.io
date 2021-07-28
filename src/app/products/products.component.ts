@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FirestoreCollectionsService } from '../shared/services/firestore-collections.service';
-import { RouterLink } from '../shared/models/car.mode';
+import { RouterLink } from '../shared/models/car.model';
 
 @Component({
   selector: 'app-products',
