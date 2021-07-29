@@ -1,11 +1,11 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { AuthService } from '../shared/services/auth.service';
-import { Animations } from '../shared/animations';
-import { User } from '../shared/models/user.model';
-import { SharedParamsService } from '../shared/services/shared-params.service';
-import { NavParameters } from '../shared/models/shared-params.model';
+import { AuthService } from '../../shared/services/auth.service';
+import { Animations } from '../../shared/animations';
+import { User } from '../../shared/models/user.model';
+import { SharedParamsService } from '../../shared/services/shared-params.service';
+import { NavParameters } from '../../shared/models/shared-params.model';
 
 @Component({
   selector: 'app-header',
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this._sharedParamsSubscription = this._sharedParamsService.navParamsSubject
     .subscribe((params) => {
       this.navParams = params;
-    })
+    });
   }
 
   ngOnDestroy(): void {

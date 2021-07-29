@@ -6,10 +6,10 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { User } from 'src/app/shared/models/user.model';
 import { FirestoreCollectionsService } from 'src/app/shared/services/firestore-collections.service';
 import { PhoneCode } from 'src/app/shared/models/phone-code.model';
-import { Animations } from '../../shared/animations';
+import { Animations } from '../../../shared/animations';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { NavParameters } from 'src/app/shared/models/shared-params.model';
-import { SharedParamsService } from '../../shared/services/shared-params.service';
+import { SharedParamsService } from '../../../shared/services/shared-params.service';
 import { ThemeService } from '../theme.service';
 
 @Component({
@@ -179,6 +179,6 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     //exit after the end of the animation
     setTimeout(() => {      
       this._authService.logout();
-    }, Animations.animationSpeed);
+    }, Animations.animationSpeed+100);
   }
 }

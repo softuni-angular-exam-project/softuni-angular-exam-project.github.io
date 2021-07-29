@@ -1,7 +1,7 @@
-@import "../../assets/styles/mixins/hovers";
-@import "../../assets/styles/mixins/media";
-@import "../../assets/styles/mixins/shortand";
-@import "../../assets/styles/variables/colors";
+@import "/src/assets/styles/mixins/hovers";
+@import "/src/assets/styles/mixins/media";
+@import "/src/assets/styles/mixins/shortand";
+@import "/src/assets/styles/variables/colors";
 
 .nav-outer-container {
   background: rgba($black, 0.95);

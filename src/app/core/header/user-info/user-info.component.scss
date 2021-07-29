@@ -1,13 +1,14 @@
-@import "../../../assets/styles/mixins/shortand";
-@import "../../../assets/styles/mixins/fonts";
-@import "../../../assets/styles/variables/colors";
+@import "/src/assets/styles/mixins/shortand";
+@import "/src/assets/styles/mixins/fonts";
+@import "/src/assets/styles/variables/colors";
+
 
 .user-info-container {
   &__user-nav {
     display: flex;
     .manage-user-info {
       background-color: transparent;
-      background-image: url("../../../assets/images/user-info/user-info.png");
+      background-image: url("../../../../assets/images/user-info/user-info.png");
       background-size: contain;
       height: 30px;
       width: 28px;
@@ -121,7 +122,7 @@
           height: 20px;
           outline: none;
           border: none;
-          background-image: url("../../../assets/images/user-info/edit.png");
+          background-image: url("../../../../assets/images/user-info/edit.png");
           background-size: cover;
           background-color: transparent;
           cursor: pointer;
@@ -158,14 +159,14 @@
           }
           .phone-accept-change {
             @include changePhoneBtn;
-            background-image: url("../../../assets/images/user-info/accept.png");
+            background-image: url("../../../../assets/images/user-info/accept.png");
             &:disabled {
-              background-image: url("../../../assets/images/user-info/accept-disabled.png");
+              background-image: url("../../../../assets/images/user-info/accept-disabled.png");
             }
           }
           .phone-decline-change {
             @include changePhoneBtn;
-            background-image: url("../../../assets/images/user-info/decline.png");
+            background-image: url("../../../../assets/images/user-info/decline.png");
           }
         }
       }

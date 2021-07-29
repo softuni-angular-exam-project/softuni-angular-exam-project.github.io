@@ -7,20 +7,15 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FooterComponent } from './footer/footer.component';
-import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
-import { HeaderModule } from './header/header.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    FooterComponent,
-    ScrollToTopComponent
-    
+    AppComponent
   ],
   imports: [
-    HeaderModule,
+    CoreModule,
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),

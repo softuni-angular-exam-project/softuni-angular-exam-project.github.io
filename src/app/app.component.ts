@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from './shared/services/auth.service';
-import { ThemeService } from './header/theme.service';
+import { ThemeService } from './core/header/theme.service';
 
 @Component({
   selector: 'app-root',
