@@ -1,42 +1,9 @@
 <div class="comment">
-
-  <div class="comment-header">
-    <div class="comment-header__left">    
-      <div 
-        class="comment-header__img"
-        [ngStyle]="{'background-image': (comment.email | getUserInfo:'userImg' | async)}">
-      </div>
-      <p class="comment-header__name">
-        {{ comment.userName }}
-      </p>
-    </div>  
-    <p class="comment-header__date">
-      {{ comment.date.toDate() | date:'dd.MM.yyyy' }} at {{ comment.date.toDate() | date:'HH:mm' }}
-    </p> 
-  </div>
-  <div class="comment-content">
-    <p class="comment-content__text">{{ comment.description }}</p>
-  </div>
+  <app-comment-el [comment]="comment"></app-comment-el>
 
   <div class="comment-replies">
     <div class="reply" *ngFor="let reply of comment.replies">
-      <div class="comment-header">
-        <div class="comment-header__left">    
-          <div 
-          class="comment-header__img"
-          [ngStyle]="{'background-image': (comment.email | getUserInfo:'userImg' | async)}">
-        </div>
-          <p class="comment-header__name">
-            {{ reply.userName }}
-          </p>
-        </div>  
-        <p class="comment-header__date">
-          {{ reply.date.toDate() | date:'dd.MM.yyyy' }} at {{ reply.date.toDate() | date:'HH:mm' }}
-        </p> 
-      </div>
-      <div class="comment-content">
-        <p class="comment-content__text">{{ reply.description }}</p>
-      </div>
+      <app-comment-el [comment]="reply"></app-comment-el>
     </div>
   </div>
 

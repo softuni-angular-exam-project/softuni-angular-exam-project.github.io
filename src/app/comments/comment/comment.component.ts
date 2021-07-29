@@ -21,9 +21,10 @@ export class CommentComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this._currentCommentIdSubscription = this._currentCommentId.currentCommentIdSubject.subscribe((id) => {
+    this._currentCommentIdSubscription = 
+    this._currentCommentId.currentCommentIdSubject.subscribe((id) => {
       this.currentCommentId = id;
-    })
+    });
   }
 
   ngOnDestroy(): void {

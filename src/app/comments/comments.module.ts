@@ -8,13 +8,15 @@ import { CommentComponent } from './comment/comment.component';
 import { CommentFormComponent } from './comment-form/comment-form.component';
 import { SharedModule } from "../shared/shared.module";
 import { CommentElComponent } from './comment/comment-el/comment-el.component';
+import { CommentUserInfoComponent } from "./comment-user-info/comment-user-info.component";
 
 @NgModule ({
   declarations: [
     CommentsComponent,
     CommentComponent,
     CommentFormComponent,
-    CommentElComponent
+    CommentElComponent,
+    CommentUserInfoComponent
   ],
   imports: [
     CommonModule,

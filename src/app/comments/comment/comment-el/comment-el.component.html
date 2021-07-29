@@ -1,1 +1,20 @@
-<p>comment-el works!</p>
+<div class="comment-header">
+  <div 
+    class="comment-header__left"
+    (click)="onShowUserInfo(comment.email)">    
+    <div 
+      class="comment-header__img"
+      [ngStyle]="{'background-image': (comment.email | getUserInfo:'userImg' | async)}">
+    </div>
+    <p class="comment-header__name">
+      {{ comment.userName }}
+    </p>
+  </div>  
+  <p class="comment-header__date">
+    {{ comment.date.toDate() | date:'dd.MM.yyyy' }} at {{ comment.date.toDate() | date:'HH:mm' }}
+  </p> 
+</div>
+<div class="comment-content">
+  <p class="comment-content__text">{{ comment.description }}</p>
+</div>
+<p *ngIf="errorMsgOnGetUser" class="error-msg">{{ errorMsgOnGetUser }}</p>

@@ -1,6 +1,10 @@
 <div class="container">
   <div class="comments-container">
-    <p class="comments">Comments</p>
+    <app-loading-spinner *ngIf="!comments"></app-loading-spinner>
+    
+    <p class="comments">
+      Comments ({{ comments?.length }})
+    </p>
 
     <div *ngIf="comments">
       <app-comment 
@@ -10,6 +14,10 @@
       </app-comment>
     </div>
 
+    <p *ngIf="comments?.length == 0" class="error-msg">
+      There are no comments added yet!
+    </p>
+
     <hr class="hr-border">
 
     <div *ngIf="!currentCommentId && isAuth">
@@ -17,4 +25,9 @@
     </div>
     <p class="comments-auth" *ngIf="!isAuth">Please Sign in to add your comment!</p>
   </div>
+
+  <app-comment-user-info 
+    *ngIf="commentParams.showUserInfo"
+    [shownUser]="commentParams.shownUser">
+  </app-comment-user-info>
 </div>

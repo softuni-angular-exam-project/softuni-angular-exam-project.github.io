@@ -24,7 +24,7 @@ export class CarItemComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this._carImagesParamsSubscription = this._sharedParams.carImagesPatamsSubject
+    this._carImagesParamsSubscription = this._sharedParams.carImagesParamsSubject
     .subscribe((object) => {
       this.carImagesParams = object;
     })

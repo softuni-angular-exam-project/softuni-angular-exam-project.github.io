@@ -55,7 +55,7 @@ export class BuyCarItemComponent implements OnInit, OnDestroy {
       this.user = user;
     });
 
-    this._carImagesParamsSubscription = this._sharedParams.carImagesPatamsSubject
+    this._carImagesParamsSubscription = this._sharedParams.carImagesParamsSubject
     .subscribe((object) => {
       this.carImagesParams = object;
     });

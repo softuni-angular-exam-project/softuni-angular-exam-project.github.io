@@ -1,5 +1,5 @@
-@import '../mixins/hovers';
-@import '../variables/colors';
+@import '/src/assets/styles/mixins/hovers';
+@import '/src/assets/styles/variables/colors';
 
 @mixin inputNoArrows {
   &::-webkit-outer-spin-button,

@@ -5,6 +5,8 @@ import { FirestoreCollectionsService } from '../shared/services/firestore-collec
 import { Comment } from '../shared/models/comment.model';
 import { CommentIdService } from './current-comment-id.service';
 import { AuthService } from '../shared/services/auth.service';
+import { CommentParameters, NavParameters } from '../shared/models/shared-params.model';
+import { SharedParamsService } from '../shared/services/shared-params.service';
 
 @Component({
   selector: 'app-comments',
@@ -13,6 +15,7 @@ import { AuthService } from '../shared/services/auth.service';
 })
 export class CommentsComponent implements OnInit, OnDestroy {
   comments!: Comment[];
+  errorOnGetComments: string = '';
 
   isAuth!: boolean;
   private _isAuthSubscription!: Subscription;
@@ -20,10 +23,17 @@ export class CommentsComponent implements OnInit, OnDestroy {
   currentCommentId!: string;
   private _currentCommentIdSubscription!: Subscription;
 
+  navParams!: NavParameters;
+  private _sharedParamsSubscription!: Subscription;
+
+  commentParams!: CommentParameters;
+  private _commentParamsSubscription!: Subscription;
+
   constructor(
     private _firestoreCollections: FirestoreCollectionsService,
     private _currentCommentId: CommentIdService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _sharedParamsService: SharedParamsService
   ) {}
 
   ngOnInit(): void {
@@ -35,10 +45,9 @@ export class CommentsComponent implements OnInit, OnDestroy {
             ...(e.payload.doc.data() as Comment),
           };
         });
-        // error ''
-      },
-      (error) => {
-        //error
+        this.errorOnGetComments = '';
+      }, (error) => {
+        this.errorOnGetComments = error.message;
       }
     );
 
@@ -49,11 +58,24 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
     this._isAuthSubscription = this._authService.user.subscribe((user) => {
       this.isAuth = user ? true : false;
-    })
+    });
+
+    this._sharedParamsSubscription = this._sharedParamsService.navParamsSubject
+    .subscribe((params) => {
+      this.navParams = params;
+    });
+
+    this._commentParamsSubscription = 
+    this._sharedParamsService.initialCommentParamsSubject
+    .subscribe((params) => {
+      this.commentParams = params;
+    });
   }
 
   ngOnDestroy(): void {
     this._currentCommentIdSubscription.unsubscribe();
+    this._sharedParamsSubscription.unsubscribe();
+    this._commentParamsSubscription.unsubscribe();
     this._isAuthSubscription.unsubscribe();
   }
 }

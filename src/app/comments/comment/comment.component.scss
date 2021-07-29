@@ -6,56 +6,6 @@
   border-radius: 5px;
   margin-bottom: 10px;
   background-color: var(--color12);
-  .comment-header {
-    background-color: var(--color4);
-    padding: 2%;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    font-weight: bold;
-    font-style: italic;
-    @include media (med) {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-    }    
-    &__left {
-      cursor: pointer;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      @include media (med) {
-        margin-bottom: 0;
-      }
-    }
-    &__img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      border: 2px solid $red;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
-      margin-right: 5px;
-    }
-    &__name {
-      color: $red;
-      font-size: 1.1em;
-    }
-    &__date {
-      font-size: 1.1em;
-      text-align: right;
-      color: var(--color7);
-    }
-  }
-}
-
-.comment-content {    
-  white-space: pre-line;
-  padding: 10px;
-  &__text {
-    color: var(--color6);
-  }
 }
 
 .comment-replies {

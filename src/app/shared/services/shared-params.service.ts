@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { CarImagesParameters, NavParameters } from '../models/shared-params.model';
+import { CarImagesParameters, CommentParameters, NavParameters } from '../models/shared-params.model';
+import { User } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class SharedParamsService {
@@ -8,7 +9,10 @@ export class SharedParamsService {
   navParamsSubject = new BehaviorSubject<NavParameters>(this.initialNavParams);
 
   initialCarImagesParams = new CarImagesParameters(false, null!);
-  carImagesPatamsSubject = new BehaviorSubject<CarImagesParameters>(this.initialCarImagesParams);
+  carImagesParamsSubject = new BehaviorSubject<CarImagesParameters>(this.initialCarImagesParams);
+
+  initialCommentParams = new CommentParameters(false, null!);
+  initialCommentParamsSubject = new BehaviorSubject<CommentParameters>(this.initialCommentParams);
 
   // Header navigation parameters
   swithcNavigationMenuState() {
@@ -23,13 +27,24 @@ export class SharedParamsService {
 
     if(this.initialCarImagesParams.carShowImages == true) {
       this.hideCarImages();
-    }
+    };
+
+    if (this.initialCommentParams.showUserInfo) {
+      this.initialCommentParams.showUserInfo = false;
+      this.initialCommentParams.shownUser = null!;
+      this.initialNavParams.isOverlayShown = false;
+    };
   }
 
   swithcUserInfoState() {
     if (this.initialNavParams.navigationMenuState == 'in') {
       this.initialNavParams.navigationMenuState = 'out';
-    }
+    };
+
+    if (this.initialCommentParams.showUserInfo) {
+      this.initialCommentParams.showUserInfo = false;
+      this.initialCommentParams.shownUser = null!;
+    };
 
     this.initialNavParams.userInfoMenuState == 'out' ?
     [this.initialNavParams.userInfoMenuState = 'in', this.initialNavParams.isOverlayShown = true] :
@@ -49,7 +64,15 @@ export class SharedParamsService {
   }
 
   overlayClick() {
-    this.initialNavParams.userInfoMenuState = 'out';
+    if (this.initialNavParams.userInfoMenuState == 'in') {
+      this.initialNavParams.userInfoMenuState = 'out';     
+    };
+
+    if (this.initialCommentParams.showUserInfo) {
+      this.initialCommentParams.showUserInfo = false;
+      this.initialCommentParams.shownUser = null!;
+    };
+
     this.initialNavParams.isOverlayShown = false;
   }
 
@@ -70,4 +93,11 @@ export class SharedParamsService {
   hideCarImages() {
     this.initialCarImagesParams.carShowImages = false;
   }
+
+  // Comments component parameters
+  showUserInfo(shownUser: User) {
+		this.initialCommentParams.showUserInfo = true;
+		this.initialCommentParams.shownUser = shownUser;
+		this.initialNavParams.isOverlayShown = true;
+	}
 }

@@ -28,7 +28,7 @@ export class CarImagesComponent implements OnInit, OnDestroy {
 
     this.currentImgUrl = this.carImgs[0];
 
-    this._carImagesParamsSubscription = this._sharedParams.carImagesPatamsSubject
+    this._carImagesParamsSubscription = this._sharedParams.carImagesParamsSubject
     .subscribe((object) => {
       this.carImagesParams = object;
     })

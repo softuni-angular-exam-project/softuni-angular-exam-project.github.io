@@ -1,0 +1,32 @@
+<div class="comment-user-info-container">
+  <div class="comment-user-info">
+    <div class="comment-user-info__close-btn" (click)="closeUserInfo()">X</div>
+    <div class="comment-user-info__avatar"
+      [ngStyle]="{'background-image': 'url(' + shownUser.userImgUrl + ')'}">
+    </div>
+    <div class="comment-user-info__element">
+      <div class="comment-info-img">
+        <img src="../../../assets/images/sign-forms/user.png">
+      </div>
+      <div>
+       {{ shownUser.name }}
+      </div>
+    </div>
+    <div class="comment-user-info__element">
+      <div class="comment-info-img">
+        <img src="../../../assets/images/sign-forms/phone.png">
+      </div>
+      <div>
+        <a href="tel:{{ shownUser.phoneCode }}{{ shownUser.phone }}">+{{ shownUser.phoneCode }}{{ shownUser.phone }}</a>
+      </div>
+    </div>
+    <div class="comment-user-info__element">
+      <div class="comment-info-img">
+        <img src="../../../assets/images/sign-forms/email.png">
+      </div>
+      <div>
+        <a href="mailto:{{ shownUser.email }}">{{ shownUser.email }}</a>              
+      </div>
+    </div>
+  </div>
+</div>
