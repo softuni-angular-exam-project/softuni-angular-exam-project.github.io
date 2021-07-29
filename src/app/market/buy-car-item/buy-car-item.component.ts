@@ -120,6 +120,7 @@ export class BuyCarItemComponent implements OnInit, OnDestroy {
           this.updateSecondHandCarError = '';
           this.cancelChanges();
         }, (error) => {
+          this.isLoading = false;
           this.updateSecondHandCarError = error.message;
         })
       })

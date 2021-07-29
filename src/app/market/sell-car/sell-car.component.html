@@ -20,9 +20,10 @@
             sellCarForm.get('model')!.touched}">
 
 					<mat-select formControlName="model">
-						<mat-option 
+						<mat-option
               *ngFor="let carModel of carModels" 
               [value]="carModel.name">
+							<img [src]="carModel.carLogoUrl" style="width: 60px; transform: translateY(5px);">
 							{{ carModel.name }}
 						</mat-option>
 					</mat-select>
@@ -60,7 +61,7 @@
 
 			<div class="sell-car-container__form__drop-downs__el price">
 				<p class="el-label">Price</p>
-				<input type="number" name="price" formControlName="price">
+					<input type="number" name="price" formControlName="price">
 				<p 
         class="error" 
         *ngIf="sellCarForm.get('price')!.invalid && 

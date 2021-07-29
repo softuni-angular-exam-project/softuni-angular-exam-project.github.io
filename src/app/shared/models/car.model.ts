@@ -14,6 +14,7 @@ export class RouterLink {
   constructor(
     public name: string,
     public link: string,
+    public carLogoUrl: string,
     public date: firebase.default.firestore.Timestamp
   ){}
 }

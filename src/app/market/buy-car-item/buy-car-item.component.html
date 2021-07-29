@@ -1,6 +1,8 @@
 <div class="car-buy-item car-item">
   <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
-  <div class="car-buy-item__car-img" [ngStyle]="{'background-image': 'url(\'' + car?.carImg + '\')'}">
+  <div 
+    class="car-buy-item__car-img" 
+    [ngStyle]="{'background-image': 'url(\'' + car?.carImg + '\')'}">
   </div>
   <div class="car-buy-item__model">
     <p>{{ car.model }}</p>

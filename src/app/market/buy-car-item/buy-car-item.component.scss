@@ -161,6 +161,7 @@
       }
     }
     &__price {
+      position: relative;
       margin: 0 auto;
       max-width: 500px;
       color: var(--color7);
@@ -171,10 +172,17 @@
         color: var(--color7);
         outline: none;
         padding: 10px;
+        padding-left: 20px !important;
         width: 100%;
         box-sizing: border-box;
         @include inputNoArrows;
       }
+    }
+    &__price::before {
+      position: absolute;
+      top: 39px;
+      content:"$";
+      left: 5px;
     }
     &__car-images {
       .images-container {

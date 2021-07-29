@@ -13,6 +13,8 @@
     *ngIf="user">
 
       <div class="user-image-container">
+        <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
         <div class="user-avatar" 
           [ngStyle]="{'background-image': 'url('+imgLocalPath+')'}">
         </div>

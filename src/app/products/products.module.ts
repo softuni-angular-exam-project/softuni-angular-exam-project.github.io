@@ -21,11 +21,11 @@ import { AuthActivate } from "../core/guards/auth.activate";
     SharedModule,
     RouterModule.forChild([
       {path: '', component: ProductsComponent,
-        canActivate: [AuthActivate], 
-        data: {
-          autenticationRequired: true,
-          autenticationFailureRedirectUrl: '/signin',
-        },
+        // canActivate: [AuthActivate], 
+        // data: {
+        //   autenticationRequired: true,
+        //   autenticationFailureRedirectUrl: '/signin',
+        // },
         children: [
           {path: 'lamborghini', component: LamborghiniComponent},
           {path: 'porsche', component: PorscheComponent},

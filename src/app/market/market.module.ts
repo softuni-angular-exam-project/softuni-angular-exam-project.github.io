@@ -29,11 +29,11 @@ import { AuthActivate } from "../core/guards/auth.activate";
     MatSelectModule,
     RouterModule.forChild([
       {path: '', component: MarketComponent, 
-        canActivate: [AuthActivate], 
-        data: {
-          autenticationRequired: true,
-          autenticationFailureRedirectUrl: '/signin',
-        },
+        // canActivate: [AuthActivate], 
+        // data: {
+        //   autenticationRequired: true,
+        //   autenticationFailureRedirectUrl: '/signin',
+        // },
         children: [
             {path: 'buy', component: BuyCarComponent,
             children: [

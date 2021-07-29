@@ -32,6 +32,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
   errorMsgOnAvatarUpload: string = '';
   errorMsgOnAvatarUpdate: string = '';
   darkMode!: boolean;
+  isLoading: boolean = false;
 
   navParams!: NavParameters;
   private _sharedParamsSubscription!: Subscription;
@@ -109,7 +110,9 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     } 
   }
 
-  uploadAvatarToFirestorage() {    
+  uploadAvatarToFirestorage() {
+    this.isLoading = true;
+
     if (this.user.userImgUrl !== this._firestoreCollections.userDefaultImgUrl) {
       this._firestoreCollections.delete(this.user.userImgUrl);
     }
@@ -125,9 +128,11 @@ export class UserInfoComponent implements OnInit, OnDestroy {
         this._firestoreCollections.updateUserImgUrl(newIfo)
         .then(() => {
           this.isInChangeImgMode = false;
+          this.isLoading = false;
           this.errorMsgOnAvatarUpdate = '';
           this.defaultImg = url;
         }, (error) => {
+          this.isLoading = false;
           this.errorMsgOnAvatarUpdate = error.message;
         })
       })      

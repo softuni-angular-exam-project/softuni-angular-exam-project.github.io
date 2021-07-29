@@ -11,6 +11,7 @@ import { ScrollToTopComponent } from "./scroll-to-top/scroll-to-top.component";
 import { HeaderComponent } from "./header/header.component";
 import { AuthActivate } from "./guards/auth.activate";
 import { AuthResolver } from "./guards/auth.resolver";
+import { SharedModule } from "../shared/shared.module";
 
 @NgModule ({
   declarations: [
@@ -22,6 +23,7 @@ import { AuthResolver } from "./guards/auth.resolver";
   imports: [
     CommonModule,
     AppRoutingModule,
+    SharedModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
     MatSelectModule

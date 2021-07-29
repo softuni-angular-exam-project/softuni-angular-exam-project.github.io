@@ -20,6 +20,7 @@
         justify-content: space-between;
       }
       .price {
+        position: relative;
         color: var(--color7);
         input {
           border-radius: 3px;
@@ -28,10 +29,17 @@
           color: var(--color7);
           outline: none;
           padding: 10px;
+          padding-left: 20px;
           width: 100%;
           box-sizing: border-box;
           @include inputNoArrows;
         }
+      }
+      .price::before{
+        position: absolute;
+        top: 34px;
+        content:"$";
+        left: 5px;
       }
       &__el {
         &:nth-child(2),
