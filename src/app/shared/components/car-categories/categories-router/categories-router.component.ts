@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { RouterLink } from '../../../models/car.model';
 
@@ -7,11 +7,6 @@ import { RouterLink } from '../../../models/car.model';
   templateUrl: './categories-router.component.html',
   styleUrls: ['./categories-router.component.scss']
 })
-export class CategoriesRouterComponent implements OnInit {
+export class CategoriesRouterComponent {
   @Input() routerLinks!: RouterLink[];
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 }

@@ -18,8 +18,8 @@ export class FirestoreCollectionsService {
 
   getPhoneCodes() {
     return this._firestore
-      .collection('phoneCodes', (data) => data.orderBy('abbreviation', 'asc'))
-      .snapshotChanges();
+    .collection('phoneCodes', (data) => data.orderBy('abbreviation', 'asc'))
+    .snapshotChanges();
   }
 
   updatePhone(newPhoneInfo: any){
@@ -43,8 +43,8 @@ export class FirestoreCollectionsService {
 
   getUserData(userEmail: string) {
     return this._firestore
-      .collection('users', (data) => data.where('email', '==', userEmail))
-      .snapshotChanges();
+    .collection('users', (data) => data.where('email', '==', userEmail))
+    .snapshotChanges();
   }
 
   updateUserImgUrl(newInfo: any){
@@ -60,20 +60,20 @@ export class FirestoreCollectionsService {
 
   getComments() {
     return this._firestore
-      .collection('comments', (data) => data.orderBy('date', 'asc'))
-      .snapshotChanges();
+    .collection('comments', (data) => data.orderBy('date', 'asc'))
+    .snapshotChanges();
   }
 
   setReply(reply: Comment){
     return this._firestore.collection('comments').doc(reply.commentId)    
-      .update({
-        replies: firebase.default.firestore.FieldValue.arrayUnion({
-          userName: reply.userName,
-          email: reply.email,
-          date: reply.date,
-          description: reply.description
-        })
-      });
+    .update({
+      replies: firebase.default.firestore.FieldValue.arrayUnion({
+        userName: reply.userName,
+        email: reply.email,
+        date: reply.date,
+        description: reply.description
+      })
+    });
   }
 
   getLamborghiniCars() {
@@ -150,6 +150,6 @@ export class FirestoreCollectionsService {
       carImg: newInfo.carImg,
       description: newInfo.description,
       price: newInfo.price
-     })
+    })
   }
 }

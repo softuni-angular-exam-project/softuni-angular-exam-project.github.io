@@ -5,6 +5,7 @@ import { RouterModule } from "@angular/router";
 
 import { SigninComponent } from "./signin.component";
 import { SharedModule } from "../shared/shared.module";
+import { AuthActivate } from "../core/guards/auth.activate";
 
 @NgModule ({
   declarations: [
@@ -15,7 +16,13 @@ import { SharedModule } from "../shared/shared.module";
     ReactiveFormsModule,    
     SharedModule,
     RouterModule.forChild([
-      {path: '', component: SigninComponent}
+      {path: '', component: SigninComponent,
+        canActivate: [AuthActivate], 
+        data: {
+          autenticationRequired: false,
+          autenticationFailureRedirectUrl: '/home',
+        }
+      }
     ])
   ],
   exports: [

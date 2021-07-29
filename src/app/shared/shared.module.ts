@@ -9,23 +9,23 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
 import { GetUserInfoPipe } from './pipes/get-user-info.pipe';
 
 @NgModule({
-    declarations: [
-        CarImagesComponent,
-        CategoriesInfoComponent,
-        CategoriesRouterComponent,
-        LoadingSpinnerComponent,
-        GetUserInfoPipe
-    ],
-    imports: [
-        CommonModule,
-        RouterModule
-    ],
-    exports: [
-        CarImagesComponent,
-        CategoriesInfoComponent,
-        CategoriesRouterComponent,
-        LoadingSpinnerComponent,
-        GetUserInfoPipe
-    ]
+  declarations: [
+    CarImagesComponent,
+    CategoriesInfoComponent,
+    CategoriesRouterComponent,
+    LoadingSpinnerComponent,
+    GetUserInfoPipe
+  ],
+  imports: [
+    CommonModule, 
+    RouterModule
+  ],
+  exports: [
+    CarImagesComponent,
+    CategoriesInfoComponent,
+    CategoriesRouterComponent,
+    LoadingSpinnerComponent,
+    GetUserInfoPipe
+  ]
 })
-export class SharedModule{}
+export class SharedModule {}

@@ -11,6 +11,7 @@ import { SharedModule } from "../shared/shared.module";
 import { SellCarComponent } from './sell-car/sell-car.component';
 import { BuyCarItemComponent } from './buy-car-item/buy-car-item.component';
 import { BuyCarComponent } from './buy-car/buy-car.component';
+import { AuthActivate } from "../core/guards/auth.activate";
 
 @NgModule ({
   declarations: [
@@ -27,16 +28,23 @@ import { BuyCarComponent } from './buy-car/buy-car.component';
     ReactiveFormsModule,
     MatSelectModule,
     RouterModule.forChild([
-      {path: '', component: MarketComponent, children: [
-          {path: 'buy', component: BuyCarComponent,
-          children: [
-            {path: 'audi', component: AudiComponent},
-            {path: 'bmw', component: BmwComponent},
-            {path: '**', redirectTo: 'audi'}
-          ]},
-        {path: 'sell', component: SellCarComponent},
-        {path: '**', redirectTo: 'buy'}
-      ]}
+      {path: '', component: MarketComponent, 
+        canActivate: [AuthActivate], 
+        data: {
+          autenticationRequired: true,
+          autenticationFailureRedirectUrl: '/signin',
+        },
+        children: [
+            {path: 'buy', component: BuyCarComponent,
+            children: [
+              {path: 'audi', component: AudiComponent},
+              {path: 'bmw', component: BmwComponent},
+              {path: '**', redirectTo: 'audi'}
+            ]},
+          {path: 'sell', component: SellCarComponent},
+          {path: '**', redirectTo: 'buy'}
+        ]
+      }
     ])
   ],
   exports: [

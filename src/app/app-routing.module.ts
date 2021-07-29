@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthResolver } from './core/guards/auth.resolver';
 
 const routes: Routes = [
   {path: '', redirectTo: '/signin', pathMatch: 'full'},

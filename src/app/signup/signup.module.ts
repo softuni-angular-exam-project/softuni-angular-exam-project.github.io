@@ -7,7 +7,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { SignupComponent } from './signup.component';
 import { SharedModule } from '../shared/shared.module';
 import { AuthActivate } from '../core/guards/auth.activate';
-import { AuthResolver } from '../core/guards/auth.resolver';
 
 @NgModule ({
   declarations: [
@@ -20,7 +19,6 @@ import { AuthResolver } from '../core/guards/auth.resolver';
     SharedModule,
     RouterModule.forChild([
       {path: '', component: SignupComponent,
-        // resolve:{user: AuthResolver},
         canActivate: [AuthActivate], 
         data: {
           autenticationRequired: false,
