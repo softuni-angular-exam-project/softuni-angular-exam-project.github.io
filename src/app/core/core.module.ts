@@ -9,9 +9,8 @@ import { UserInfoComponent } from './header/user-info/user-info.component';
 import { FooterComponent } from "./footer/footer.component";
 import { ScrollToTopComponent } from "./scroll-to-top/scroll-to-top.component";
 import { HeaderComponent } from "./header/header.component";
-import { AuthActivate } from "./guards/auth.activate";
-import { AuthResolver } from "./guards/auth.resolver";
 import { SharedModule } from "../shared/shared.module";
+import { AuthActivate } from "./guards/auth.activate";
 
 @NgModule ({
   declarations: [
@@ -29,8 +28,7 @@ import { SharedModule } from "../shared/shared.module";
     MatSelectModule
   ],
   providers: [
-    AuthActivate,
-    AuthResolver
+    AuthActivate
   ],
   exports: [
     HeaderComponent,

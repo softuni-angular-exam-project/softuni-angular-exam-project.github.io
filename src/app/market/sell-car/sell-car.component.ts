@@ -138,12 +138,10 @@ export class SellCarComponent implements OnInit {
           resolve();
         }, (error) => {
           this.getCarImgURLError = error.message;
-          reject();
         })
         this.uploadCarImgToFirestoreError = '';
       }, (error) => {
         this.uploadCarImgToFirestoreError = error.message;
-        reject();
       })
     })
   };
@@ -201,12 +199,10 @@ export class SellCarComponent implements OnInit {
             }
           }, (error) => {
             this.getcarImgURLsError = error.message;
-            reject();
           })
           this.uploadCarImagesToFirestoreError = '';
         }, (error) => {
           this.uploadCarImagesToFirestoreError = error.message;
-          reject();
         })
       }
     })

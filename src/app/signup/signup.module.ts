@@ -6,7 +6,6 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { SignupComponent } from './signup.component';
 import { SharedModule } from '../shared/shared.module';
-import { AuthActivate } from '../core/guards/auth.activate';
 
 @NgModule ({
   declarations: [
@@ -18,13 +17,7 @@ import { AuthActivate } from '../core/guards/auth.activate';
     ReactiveFormsModule,
     SharedModule,
     RouterModule.forChild([
-      {path: '', component: SignupComponent,
-        // canActivate: [AuthActivate], 
-        // data: {
-        //   autenticationRequired: false,
-        //   autenticationFailureRedirectUrl: '/home',
-        // }
-      }
+      {path: '', component: SignupComponent}
     ])
   ],
   exports: [

@@ -76,7 +76,7 @@ export class AuthService {
     .then(() => {      
       this.userDbSubscription.unsubscribe();
       this.user.next(null!);
-      this._router.navigate(['/login']);
+      this._router.navigate(['/signin']);
     });
   };
 
