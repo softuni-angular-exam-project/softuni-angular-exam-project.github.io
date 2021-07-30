@@ -42,6 +42,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onSwithcNavigationMenuState() {
+    if (this.navParams.windowWidth >= 767) {
+      return
+    }
 		this._sharedParamsService.swithcNavigationMenuState();
   }
 
