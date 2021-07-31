@@ -8,7 +8,7 @@ import { FirestoreCollectionsService } from './firestore-collections.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  user = new BehaviorSubject<User>(null!);
+  user = new BehaviorSubject<User>(undefined!);
   userDbSubscription!: Subscription;
 
   errorAuthMsg: string = '';
@@ -82,10 +82,10 @@ export class AuthService {
 
   autoLogin() {
     this._firebaseAuth.authState.subscribe((user) => {
-      if (user) {
-        if(!this.userDbSubscription) {
-          this.subscribeForDbCollectionUser(user.email!);
-        }
+      if (user && !this.userDbSubscription) {
+        this.subscribeForDbCollectionUser(user.email!);
+      } else {
+        this.user.next(null!);
       }
     });
   };

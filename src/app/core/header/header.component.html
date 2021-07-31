@@ -1,5 +1,5 @@
 <div class="nav-outer-container">
-  <div class="nav-container">
+  <div *ngIf="user !== undefined" class="nav-container">
     <button class="nav-container__hamburger"
       (click)="onSwithcNavigationMenuState()"
       [disabled]="navParams.disableButton"
@@ -24,14 +24,14 @@
         [ngClass]="{'disabled-pointer-events' : navParams.disableButton}"
         [routerLink]="['/products']" 
         routerLinkActive="nav-active" 
-        *ngIf="isAuth">
+        *ngIf="user">
         Products
       </li>
       <li (click)="onSwithcNavigationMenuState()"
         [ngClass]="{'disabled-pointer-events' : navParams.disableButton}"
         [routerLink]="['/market']" 
         routerLinkActive="nav-active" 
-        *ngIf="isAuth">
+        *ngIf="user">
         Market
       </li>
       <li (click)="onSwithcNavigationMenuState()"
@@ -46,18 +46,18 @@
       <button class="btn-default narrow-btn"
         [routerLink]="['/signin']" 
         routerLinkActive="nav-active-btn" 
-        *ngIf="!isAuth">
+        *ngIf="!user">
         Sign in
       </button>
       <button class="btn-default narrow-btn"
         [routerLink]="['/signup']" 
         routerLinkActive="nav-active-btn"
-        *ngIf="!isAuth">
+        *ngIf="!user">
         Sign up
       </button>
     </div>
 
-    <div *ngIf="isAuth && user">
+    <div *ngIf="user">
       <app-user-info [user]="user"></app-user-info>
     </div>      
   </div>

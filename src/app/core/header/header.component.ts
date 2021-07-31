@@ -14,8 +14,7 @@ import { NavParameters } from '../../shared/models/shared-params.model';
   animations: [Animations.slideRightLeft]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  isAuth!: boolean;
-  user!: User;
+  user: User = undefined!;
 
   navParams!: NavParameters;
   private _sharedParamsSubscription!: Subscription;
@@ -27,8 +26,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._authService.user.subscribe((user) => {
-      this.user = user;
-      this.isAuth = user ? true : false;
+      if(user !== undefined) {
+        this.user = user;
+      }
     });
 
     this._sharedParamsSubscription = this._sharedParamsService.navParamsSubject
