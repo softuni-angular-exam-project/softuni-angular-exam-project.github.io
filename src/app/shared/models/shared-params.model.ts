@@ -3,6 +3,7 @@ import { User } from "./user.model";
 export class NavParameters {
   constructor(
     public userInfoMenuState: string,
+    public loginHistoryMenuState: string,
     public navigationMenuState: string,
     public disableButton: boolean,
     public isOverlayShown: boolean,

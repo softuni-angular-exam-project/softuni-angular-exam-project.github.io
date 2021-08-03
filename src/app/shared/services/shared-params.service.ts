@@ -5,7 +5,7 @@ import { User } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class SharedParamsService {
-  initialNavParams = new NavParameters('out', 'out', false, false, window.innerWidth)
+  initialNavParams = new NavParameters('out', 'out', 'out', false, false, window.innerWidth)
   navParamsSubject = new BehaviorSubject<NavParameters>(this.initialNavParams);
 
   initialCarImagesParams = new CarImagesParameters(false, null!);
@@ -18,6 +18,7 @@ export class SharedParamsService {
   swithcNavigationMenuState() {
     if (this.initialNavParams.userInfoMenuState == 'in') {
       this.initialNavParams.userInfoMenuState = 'out';
+      this.initialNavParams.loginHistoryMenuState = 'out';
       this.initialNavParams.isOverlayShown = false;
     }
 
@@ -48,11 +49,20 @@ export class SharedParamsService {
 
     this.initialNavParams.userInfoMenuState == 'out' ?
     [this.initialNavParams.userInfoMenuState = 'in', this.initialNavParams.isOverlayShown = true] :
-    [this.initialNavParams.userInfoMenuState = 'out', this.initialNavParams.isOverlayShown = false]
+    [this.initialNavParams.userInfoMenuState = 'out', this.initialNavParams.isOverlayShown = false, 
+      this.initialNavParams.loginHistoryMenuState = 'out']
 
     if(this.initialCarImagesParams.carShowImages == true) {
       this.hideCarImages();
     }
+  }
+
+  showLoginHistory() {
+    this.initialNavParams.loginHistoryMenuState = 'in';
+  }
+
+  hideLoginHistory() {
+    this.initialNavParams.loginHistoryMenuState = 'out';
   }
 
   disableButton() {
@@ -65,7 +75,8 @@ export class SharedParamsService {
 
   overlayClick() {
     if (this.initialNavParams.userInfoMenuState == 'in') {
-      this.initialNavParams.userInfoMenuState = 'out';     
+      this.initialNavParams.userInfoMenuState = 'out';
+      this.initialNavParams.loginHistoryMenuState = 'out';
     };
 
     if (this.initialCommentParams.showUserInfo) {
@@ -78,6 +89,7 @@ export class SharedParamsService {
 
   resetParamsToDefault() {
     this.initialNavParams.userInfoMenuState = 'out';
+    this.initialNavParams.loginHistoryMenuState = 'out';
     this.initialNavParams.navigationMenuState = 'out';
     this.initialNavParams.disableButton = false;
     this.initialNavParams.isOverlayShown = false;

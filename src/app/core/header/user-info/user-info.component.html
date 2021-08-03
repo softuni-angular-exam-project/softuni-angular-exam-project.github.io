@@ -109,8 +109,22 @@
         </div>          
       </div>
 
-      <button class="logout-btn btn-default narrow-btn" (click)="onLogout()">
-        Logout
-      </button>      
+      <div class="user-info-btns">
+        <button class="btn-default narrow-btn" (click)="onShowLoginHistory()">
+          Login History
+        </button> 
+        <button class="btn-default narrow-btn" (click)="onLogout()">
+          Logout
+        </button> 
+      </div>
+
+      <div 
+        class="loggin-history-container"
+        [@slideLeftRight]="navParams.loginHistoryMenuState"
+        (@slideLeftRight.start)="onDisableButton()"
+        (@slideLeftRight.done)="onEnableButton()">
+
+        <app-login-history [ips]="user.loginHistory!"></app-login-history>
+      </div>
   </div>
 </div>

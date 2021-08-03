@@ -6,6 +6,7 @@ import { Animations } from '../../shared/animations';
 import { User } from '../../shared/models/user.model';
 import { SharedParamsService } from '../../shared/services/shared-params.service';
 import { NavParameters } from '../../shared/models/shared-params.model';
+import { FirestoreCollectionsService } from 'src/app/shared/services/firestore-collections.service';
 
 @Component({
   selector: 'app-header',
@@ -21,13 +22,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private _authService: AuthService,
-    private _sharedParamsService: SharedParamsService
+    private _sharedParamsService: SharedParamsService,
+    private _firestoreCollections: FirestoreCollectionsService
   ) { }
 
   ngOnInit(): void {
     this._authService.user.subscribe((user) => {
       if(user !== undefined) {
-        this.user = user;
+        this.user = user;        
+        
+        if (this.user && this.user.loginHistory?.length! > 9) {
+          this.user.loginHistory?.reverse();
+          for (let i = this.user.loginHistory?.length!-1; i > 9; i--) {
+            this._firestoreCollections.deleteUserIPAddress(this.user.uid!, this.user.loginHistory![i]);            
+          }
+        }        
       }
     });
 

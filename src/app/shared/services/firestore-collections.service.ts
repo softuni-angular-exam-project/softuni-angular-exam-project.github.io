@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import * as firebase from 'firebase/app';
 
-import { User } from '../models/user.model';
+import { LoginHistory, User } from '../models/user.model';
 import { Comment } from '../models/comment.model';
 import { CarsForSell } from '../models/car.model';
 
@@ -45,6 +45,25 @@ export class FirestoreCollectionsService {
     return this._firestore
     .collection('users', (data) => data.where('email', '==', userEmail))
     .snapshotChanges();
+  }
+
+  setUserIPAddress(userLoginInfo: LoginHistory) {
+    return this._firestore
+    .collection('users').doc(userLoginInfo.uid).update({
+      loginHistory: firebase.default.firestore.FieldValue.arrayUnion({
+        date: firebase.default.firestore.Timestamp.now(),
+        ip: userLoginInfo.ip,
+        id: userLoginInfo.id
+      })
+    })
+  }
+
+  deleteUserIPAddress(userID: string, lognHisoryObject: LoginHistory) {
+    return this._firestore
+    .collection('users').doc(userID)
+    .update({
+      loginHistory: firebase.default.firestore.FieldValue.arrayRemove(lognHisoryObject)
+    })
   }
 
   updateUserImgUrl(newInfo: any){

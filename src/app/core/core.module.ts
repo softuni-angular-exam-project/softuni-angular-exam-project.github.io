@@ -11,13 +11,15 @@ import { ScrollToTopComponent } from "./scroll-to-top/scroll-to-top.component";
 import { HeaderComponent } from "./header/header.component";
 import { SharedModule } from "../shared/shared.module";
 import { AuthActivate } from "./guards/auth.activate";
+import { LoginHistoryComponent } from './header/user-info/login-history/login-history.component';
 
 @NgModule ({
   declarations: [
     HeaderComponent,
     UserInfoComponent,
     FooterComponent,
-    ScrollToTopComponent
+    ScrollToTopComponent,
+    LoginHistoryComponent
   ],
   imports: [
     CommonModule,

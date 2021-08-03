@@ -9,7 +9,7 @@ import { User } from 'src/app/shared/models/user.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { FirestoreCollectionsService } from 'src/app/shared/services/firestore-collections.service';
 import { SharedParamsService } from 'src/app/shared/services/shared-params.service';
-import { GenerateIdService } from '../generate-id.service';
+import { GenerateIdService } from '../../shared/services/generate-id.service';
 
 @Component({
   selector: 'app-buy-car-item',

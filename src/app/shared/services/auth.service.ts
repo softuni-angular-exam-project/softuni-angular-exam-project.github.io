@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import { User } from '../models/user.model';
+import { LoginHistory, User } from '../models/user.model';
 import { FirestoreCollectionsService } from './firestore-collections.service';
+import { GenerateIdService } from './generate-id.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   user = new BehaviorSubject<User>(undefined!);
   userDbSubscription!: Subscription;
+
+  userIPAddress: string = '';
+  private _userIPAddressSubscription!: Subscription;
+  userID!: string;
 
   errorAuthMsg: string = '';
   errorAuthMsgSubject = new BehaviorSubject<string>(this.errorAuthMsg);
@@ -26,7 +32,9 @@ export class AuthService {
   constructor(
     private _router: Router,
     private _firebaseAuth: AngularFireAuth,
-    private _firestoreCollections: FirestoreCollectionsService
+    private _firestoreCollections: FirestoreCollectionsService,
+    private _http: HttpClient,
+    private _generateIdService: GenerateIdService
   ) { }
 
   signUp(newUser: User) {
@@ -35,9 +43,10 @@ export class AuthService {
     .then((user) => {
       newUser.uid = user.user!.uid;
       this._firestoreCollections.setUserData(newUser)
-      .then(() => {          
+      .then(() => {
           this.subscribeForDbCollectionUser(newUser.email);
           this._router.navigate(['/home']);
+          this.setUserIP();
           this.errorOnSetUserData = '';
           this.errorOnSetUserDataSubject.next(this.errorOnSetUserData);
         }, (error) => {
@@ -57,9 +66,10 @@ export class AuthService {
   signIn(email: string, password: string) {
     this.enableLoadingSpinner();
     this._firebaseAuth.signInWithEmailAndPassword(email, password)
-    .then(() => {        
+    .then(() => {
         this.subscribeForDbCollectionUser(email);
         this._router.navigate(['/home']);
+        this.setUserIP();
         this.errorAuthMsg = '';
         this.errorAuthMsgSubject.next(this.errorAuthMsg);
         this.disableLoadingSpinner();
@@ -73,7 +83,7 @@ export class AuthService {
 
   logout() {
     this._firebaseAuth.signOut()
-    .then(() => {      
+    .then(() => {
       this.userDbSubscription.unsubscribe();
       this.user.next(null!);
       this._router.navigate(['/signin']);
@@ -97,9 +107,10 @@ export class AuthService {
           return {
             id: e.payload.doc.id,
             ...(e.payload.doc.data() as User),
-          };
+          }
         });
         this.user.next(userInfo[0]);
+        this.userID = userInfo[0].uid!;
         this.errorOnGetuserData = '';
         this.errorOnGetuserDataSubject.next(this.errorOnGetuserData);
       }, (error) => {
@@ -108,6 +119,28 @@ export class AuthService {
       }
     );
   };
+
+  setUserIP() {
+    const promise = new Promise<void>((resolve, reject) => {
+      this._userIPAddressSubscription = this._http.get("https://api.ipify.org/?format=json").subscribe((res: any) => {
+        if(res.ip && this.userDbSubscription) {
+          this.userIPAddress = res.ip;
+          resolve();
+        }
+      });
+    }).then(() => {
+      const userLoginInfo: LoginHistory = {
+        ip: this.userIPAddress,
+        id: this._generateIdService.generateId(),
+        uid: this.userID
+      }
+      this._firestoreCollections.setUserIPAddress(userLoginInfo).then(() => {
+        this._userIPAddressSubscription.unsubscribe();
+      }, (error) => {
+
+      })      
+    })
+  }
 
   errorAuthHandler(error: any) {
     switch (error.code) {

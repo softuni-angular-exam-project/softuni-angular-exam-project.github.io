@@ -172,6 +172,10 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     });
   }
 
+  onShowLoginHistory() {
+    this._sharedParamsService.showLoginHistory();
+  }
+
   changeTheme() {
     JSON.parse(localStorage.getItem('theme')!) == 
       'theme-light' ? this._themeService.setDark() : this._themeService.setLight();

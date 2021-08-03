@@ -6,7 +6,7 @@ import * as firebase from 'firebase/app';
 
 import { CarManufactureYear, RouterLink } from 'src/app/shared/models/car.model';
 import { FirestoreCollectionsService } from 'src/app/shared/services/firestore-collections.service';
-import { GenerateIdService } from '../generate-id.service';
+import { GenerateIdService } from '../../shared/services/generate-id.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { User } from 'src/app/shared/models/user.model';
 

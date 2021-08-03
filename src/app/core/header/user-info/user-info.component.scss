@@ -186,8 +186,25 @@
         }
       }
     }
-    .logout-btn {
-      float: right;
+    .user-info-btns {
+      display: flex;
+      justify-content: space-between;
+      button {
+        width: 113px !important;
+      }
     }
+  }
+
+  .loggin-history-container {
+    position: absolute;
+    z-index: 10;
+    top: 0px;
+    right: 0;
+    height: 100%;
+    width: 320px;
+    box-sizing: border-box;
+    padding: 10px;
+    background: rgba($black, 0.95);
+    color: $white;
   }
 }
