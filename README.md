@@ -4,6 +4,7 @@ Architecture:
 Core
 -- Home page
 ----- User Info
+-------- Login History
 -- Products
 -- Market
 ----- Buy Car
