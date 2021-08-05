@@ -56,6 +56,7 @@
   </div>
 
   <div class="edit-container" *ngIf="isInEditMode">
+    <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
     <form class="edit-container__form" [formGroup]="changeCarDetailsForm" (ngSubmit)="submitCarDetailChanges(changeCarDetailsForm)">
       <div class="edit-container__form__car-img">
         <input formControlName="carImg" #chooseCarImg style="display: none;" type="file"

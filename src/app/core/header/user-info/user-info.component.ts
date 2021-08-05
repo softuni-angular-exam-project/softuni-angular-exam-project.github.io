@@ -121,8 +121,8 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     .upload('/userImages/' + this.user.email + '/' + this.file.name, this.file)
     .then(uploadTask => {
       uploadTask.ref.getDownloadURL().then(url => {
-        const userImgUrl = url;
-        const userId = this.user.uid;
+        const userImgUrl: string = url;
+        const userId: string = this.user.uid!;
         const newIfo = { userImgUrl, userId };
 
         this._firestoreCollections.updateUserImgUrl(newIfo)
@@ -158,9 +158,9 @@ export class UserInfoComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const userId = this.user.uid;
-    const phoneCode = changePhoneForm.value.phoneCode;
-    const phone = changePhoneForm.value.phone;    
+    const userId: string = this.user.uid!;
+    const phoneCode: number = changePhoneForm.value.phoneCode;
+    const phone: number = changePhoneForm.value.phone;    
     const newPhoneInfo = {userId, phoneCode, phone}
     
     this._firestoreCollections.updatePhone(newPhoneInfo)

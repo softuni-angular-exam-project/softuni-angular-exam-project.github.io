@@ -87,9 +87,9 @@ export class BuyCarItemComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
 
-    const id = this.car.id;
-    let carImg = this.car.carImg;
-    const doc = this.car.model;
+    const id: string = this.car.id!;
+    let carImg: string = this.car.carImg;
+    const doc: string = this.car.model;
 
     this.uploadCarImageToFirestore(id!).then(() => {
       if (changeCarDetailsForm.value.carImg) {
@@ -99,21 +99,21 @@ export class BuyCarItemComponent implements OnInit, OnDestroy {
         for (let i = 0; i < this.currentImageForDelete.length; i++) {
           this._firestoreCollections.delete(this.currentImageForDelete[i])
         }
-        const currentImgs = this.currentCarImages;
-        const urls = { doc, id, currentImgs }
-        this._firestoreCollections.setSecondHanCurrentImages(urls);        
+        const currentImgs: string = this.currentCarImages;
+        const imgUrls = { doc, id, currentImgs }
+        this._firestoreCollections.setSecondHandCurrentImages(imgUrls);        
       }
       this.uploadCarImagesToFirestore(id!).then(() => {
         if (this.carImgNames.length > 0) {
           for (let i = 0; i < this.carImgNames.length; i++) {
-            const img = changeCarDetailsForm.value.carImgs[i];
-            const urls = { doc, id, img }
-            this._firestoreCollections.updateSecondHanImagesCar(urls)
+            const img: string = changeCarDetailsForm.value.carImgs[i];
+            const carImgUrl = { doc, id, img }
+            this._firestoreCollections.updateSecondHandImagesCar(carImgUrl)
           }
         }
-        const description = changeCarDetailsForm.value.description;
-        const price = changeCarDetailsForm.value.price;      
-        const newInfo = {carImg, description, price, id, doc};
+        const description: string = changeCarDetailsForm.value.description;
+        const price: number = changeCarDetailsForm.value.price;      
+        const newInfo = { carImg, description, price, id, doc };
         this._firestoreCollections.updateSecondHandCar(newInfo)
         .then(() => {
           this.isLoading = false;

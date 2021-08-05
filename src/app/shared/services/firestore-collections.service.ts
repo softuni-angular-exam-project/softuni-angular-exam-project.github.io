@@ -22,7 +22,7 @@ export class FirestoreCollectionsService {
     .snapshotChanges();
   }
 
-  updatePhone(newPhoneInfo: any){
+  updatePhone(newPhoneInfo: { userId: string, phoneCode: number, phone: number }){
     return this._firestore
     .collection('users').doc(newPhoneInfo.userId).update({
       phoneCode: newPhoneInfo.phoneCode,
@@ -66,7 +66,7 @@ export class FirestoreCollectionsService {
     })
   }
 
-  updateUserImgUrl(newInfo: any){
+  updateUserImgUrl(newInfo: { userImgUrl: string, userId: string }){
     return this._firestore.collection('users').doc(newInfo.userId)
     .update({
       userImgUrl: newInfo.userImgUrl
@@ -146,23 +146,23 @@ export class FirestoreCollectionsService {
     .snapshotChanges();
   }
 
-  setSecondHanCurrentImages(url: any){
+  setSecondHandCurrentImages(imgUrls: { doc: string, id: string, currentImgs: string }){
     return this._firestore
-    .collection(url.doc).doc(url.id)
+    .collection(imgUrls.doc).doc(imgUrls.id)
     .update({
-      carImages: url.currentImgs
+      carImages: imgUrls.currentImgs
     });
   }
 
-  updateSecondHanImagesCar(url: any){
+  updateSecondHandImagesCar(carImgUrl: { doc: string, id: string, img: string }){
     return this._firestore
-    .collection(url.doc).doc(url.id)
+    .collection(carImgUrl.doc).doc(carImgUrl.id)
     .update({
-      carImages: firebase.default.firestore.FieldValue.arrayUnion(url.img)
+      carImages: firebase.default.firestore.FieldValue.arrayUnion(carImgUrl.img)
     });
   }
 
-  updateSecondHandCar(newInfo: any){
+  updateSecondHandCar(newInfo: { carImg: string, description: string, price: number, id: string, doc: string }){
     return this._firestore
     .collection(newInfo.doc).doc(newInfo.id)
     .update({

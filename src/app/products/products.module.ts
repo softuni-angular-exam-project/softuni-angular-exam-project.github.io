@@ -7,7 +7,6 @@ import { CarItemComponent } from './car-item/car-item.component';
 import { LamborghiniComponent } from './car-pages/lamborghini/lamborghini.component';
 import { PorscheComponent } from './car-pages/porsche/porsche.component';
 import { SharedModule } from "../shared/shared.module";
-import { AuthActivate } from "../core/guards/auth.activate";
 
 @NgModule ({
   declarations: [
@@ -21,11 +20,6 @@ import { AuthActivate } from "../core/guards/auth.activate";
     SharedModule,
     RouterModule.forChild([
       {path: '', component: ProductsComponent,
-        // canActivate: [AuthActivate], 
-        // data: {
-        //   autenticationRequired: true,
-        //   autenticationFailureRedirectUrl: '/signin',
-        // },
         children: [
           {path: 'lamborghini', component: LamborghiniComponent},
           {path: 'porsche', component: PorscheComponent},
