@@ -97,11 +97,9 @@ export class BuyCarItemComponent implements OnInit, OnDestroy {
       }
       if (this.currentImageForDelete.length > 0) {
         for (let i = 0; i < this.currentImageForDelete.length; i++) {
-          this._firestoreCollections.delete(this.currentImageForDelete[i])
-        }
-        const currentImgs: string = this.currentCarImages;
-        const imgUrls = { doc, id, currentImgs }
-        this._firestoreCollections.setSecondHandCurrentImages(imgUrls);        
+          this._firestoreCollections.delete(this.currentImageForDelete[i]);
+          this._firestoreCollections.deleteSecondHandCurrentImage(doc, id, this.currentImageForDelete[i]);
+        }      
       }
       this.uploadCarImagesToFirestore(id!).then(() => {
         if (this.carImgNames.length > 0) {

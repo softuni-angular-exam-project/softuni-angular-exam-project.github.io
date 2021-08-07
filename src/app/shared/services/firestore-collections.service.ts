@@ -146,11 +146,11 @@ export class FirestoreCollectionsService {
     .snapshotChanges();
   }
 
-  setSecondHandCurrentImages(imgUrls: { doc: string, id: string, currentImgs: string }){
+  deleteSecondHandCurrentImage(doc: string, id: string, imgForDelete: string) {
     return this._firestore
-    .collection(imgUrls.doc).doc(imgUrls.id)
+    .collection(doc).doc(id)
     .update({
-      carImages: imgUrls.currentImgs
+      carImages: firebase.default.firestore.FieldValue.arrayRemove(imgForDelete)
     });
   }
 
