@@ -11,8 +11,9 @@ export const environment = {
     storageBucket: "softuni-angular-exam.appspot.com",
     messagingSenderId: "451856190969",
     appId: "1:451856190969:web:48a2df3f0f8338d5230128",
-    measurementId: "G-RVRT6EY88D"
-  }
+    measurementId: "G-RVRT6EY88D",    
+  },
+  geoLocationAPIKey: 'a77ee739ab87419193811644c63fda5a'
 };
 
 /*

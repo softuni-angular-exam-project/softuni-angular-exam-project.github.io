@@ -47,13 +47,15 @@ export class FirestoreCollectionsService {
     .snapshotChanges();
   }
 
-  setUserIPAddress(userLoginInfo: LoginHistory) {
+  setUserIPAddress(userLocation: LoginHistory) {
     return this._firestore
-    .collection('users').doc(userLoginInfo.uid).update({
+    .collection('users').doc(userLocation.uid).update({
       loginHistory: firebase.default.firestore.FieldValue.arrayUnion({
-        date: firebase.default.firestore.Timestamp.now(),
-        ip: userLoginInfo.ip,
-        id: userLoginInfo.id
+        date: userLocation.date,
+        ip: userLocation.ip,
+        id: userLocation.id,
+        country: userLocation.country,
+        city: userLocation.city
       })
     })
   }

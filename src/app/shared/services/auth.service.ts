@@ -3,7 +3,9 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
+import * as firebase from 'firebase/app';
 
+import { environment } from 'src/environments/environment';
 import { LoginHistory, User } from '../models/user.model';
 import { FirestoreCollectionsService } from './firestore-collections.service';
 import { GenerateIdService } from './generate-id.service';
@@ -13,9 +15,8 @@ export class AuthService {
   user = new BehaviorSubject<User>(undefined!);
   userDbSubscription!: Subscription;
 
-  userIPAddress: string = '';
-  private _userIPAddressSubscription!: Subscription;
-  userID!: string;
+  userLocation = new LoginHistory ('', '' , '', '', '', null!);
+  private _userLocationSubscription!: Subscription;
 
   errorAuthMsg: string = '';
   errorAuthMsgSubject = new BehaviorSubject<string>(this.errorAuthMsg);
@@ -110,7 +111,7 @@ export class AuthService {
           }
         });
         this.user.next(userInfo[0]);
-        this.userID = userInfo[0].uid!;
+        this.userLocation.uid = userInfo[0].uid!;
         this.errorOnGetuserData = '';
         this.errorOnGetuserDataSubject.next(this.errorOnGetuserData);
       }, (error) => {
@@ -120,25 +121,26 @@ export class AuthService {
     );
   };
 
+
   setUserIP() {
     const promise = new Promise<void>((resolve, reject) => {
-      this._userIPAddressSubscription = this._http.get("https://api.ipify.org/?format=json").subscribe((res: any) => {
-        if(res.ip && this.userDbSubscription) {
-          this.userIPAddress = res.ip;
+      this._userLocationSubscription = this._http.get("https://api.geoapify.com/v1/ipinfo?apiKey=" + environment.geoLocationAPIKey)
+      .subscribe((res: any) => {
+        if(res && this.userDbSubscription) {
+          this.userLocation.country = res.country.name,
+          this.userLocation.city = res.city.name,
+          this.userLocation.ip = res.ip,
+          this.userLocation.id = this._generateIdService.generateId(),
+          this.userLocation.date = firebase.default.firestore.Timestamp.now();
           resolve();
         }
       });
-    }).then(() => {
-      const userLoginInfo: LoginHistory = {
-        ip: this.userIPAddress,
-        id: this._generateIdService.generateId(),
-        uid: this.userID
-      }
-      this._firestoreCollections.setUserIPAddress(userLoginInfo).then(() => {
-        this._userIPAddressSubscription.unsubscribe();
+    }).then(() => {      
+      this._firestoreCollections.setUserIPAddress(this.userLocation).then(() => {
+        this._userLocationSubscription.unsubscribe();
       }, (error) => {
 
-      })      
+      })
     })
   }
 

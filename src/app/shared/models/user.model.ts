@@ -15,7 +15,9 @@ export class LoginHistory {
   constructor(
     public ip: string,
     public id: string,
+    public country: string,
+    public city: string,
     public uid: string,
-    public date?: firebase.default.firestore.Timestamp
+    public date: firebase.default.firestore.Timestamp,
   ) {}
 }

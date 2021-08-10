@@ -1,4 +1,9 @@
+@import "/src/assets/styles/mixins/shortand";
+
 .login-history {
+  overflow: auto;
+  height: 100%;
+  @include scrollbar(normal);
   &__close-btn {
     width: 20px;
     height: 20px;
@@ -6,7 +11,7 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    right: 10px;
+    right: 20px;
     cursor: pointer;
     border: none;
     outline: none;
@@ -23,7 +28,7 @@
     text-align: center;
   }
   &__table {
-    width: 100%;
+    width: 100%;    
     tr {
       text-align: center;
       td {

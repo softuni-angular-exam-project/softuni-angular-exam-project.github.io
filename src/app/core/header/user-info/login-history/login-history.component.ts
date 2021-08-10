@@ -9,7 +9,7 @@ import { SharedParamsService } from 'src/app/shared/services/shared-params.servi
   styleUrls: ['./login-history.component.scss']
 })
 export class LoginHistoryComponent {
-  @Input() ips!: LoginHistory[];
+  @Input() loginHistory!: LoginHistory[];
 
   constructor(
     private _sharedParamsService: SharedParamsService
