@@ -11,7 +11,6 @@ import { SharedModule } from "../shared/shared.module";
 import { SellCarComponent } from './sell-car/sell-car.component';
 import { BuyCarItemComponent } from './buy-car-item/buy-car-item.component';
 import { BuyCarComponent } from './buy-car/buy-car.component';
-import { AuthActivate } from "../core/guards/auth.activate";
 
 @NgModule ({
   declarations: [
@@ -29,11 +28,6 @@ import { AuthActivate } from "../core/guards/auth.activate";
     MatSelectModule,
     RouterModule.forChild([
       {path: '', component: MarketComponent, 
-        // canActivate: [AuthActivate], 
-        // data: {
-        //   autenticationRequired: true,
-        //   autenticationFailureRedirectUrl: '/signin',
-        // },
         children: [
             {path: 'buy', component: BuyCarComponent,
             children: [
